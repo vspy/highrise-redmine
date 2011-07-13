@@ -1,12 +1,9 @@
-<people>
+<companies>
 
-<person>
+<company>
   <id type="integer">1</id>
-  <first-name>John</first-name>
-  <last-name>Doe</last-name>
-  <title>Stand-in</title>
-  <background>A popular guy for random data</background>
-  <company-id type="integer">5</company-id>
+  <name>Doe Inc.</name>
+  <background>A popular company for random data</background>
   <created-at type="datetime">2007-02-27T03:11:52Z</created-at>
   <updated-at type="datetime">2007-03-10T15:11:52Z</updated-at>
   <visible-to>Everyone</visible-to>
@@ -17,7 +14,7 @@
     <email-addresses>
       <email-address>
         <id type="integer">1</id>
-        <address>john.doe@example.com</address>
+        <address>corporate@example.com</address>
         <location>Work</location>
       </email-address>
     </email-addresses>
@@ -29,8 +26,8 @@
       </phone-number>
       <phone-number>
         <id type="integer">3</id>
-        <number>555-666-6666</number>
-        <location>Home</location>
+        <number>555-666-6667</number>
+        <location>Fax</location>
       </phone-number>
     </phone-numbers>
   </contact-data>
@@ -42,53 +39,43 @@
       <subject_field_id type="integer">1</subject_field_id>
       <subject_field_label>Sales Region</subject_field_label>
     </subject_data>
-    <subject_data>
-      <id type="integer">5</id>
-      <value>John</value>
-      <subject_field_id type="integer">2</subject_field_id>
-      <subject_field_label>Account Manager</subject_field_label>
-    </subject_data>
   </subject_datas>
   <tags type="array">
     <tag>
-      <id type="integer">1</id>
-      <name>Partner</name>
+      <id type="integer">2</id>
+      <name>Lead</name>
     </tag>
   </tags>
-</person>
+</company>
 
-
-<person>
+<company>
   <id type="integer">2</id>
-  <first-name>Jane</first-name>
-  <last-name>Doe</last-name>
-  <title>Assistant</title>
-  <background>A popular girl for random data</background>
-  <company-id type="integer">6</company-id>
-  <created-at type="datetime">2007-03-27T03:11:52Z</created-at>
-  <updated-at type="datetime">2007-04-10T15:11:52Z</updated-at>
+  <name>Acme Inc.</name>
+  <background>Another popular company for random data</background>
+  <created-at type="datetime">2008-02-27T03:11:52Z</created-at>
+  <updated-at type="datetime">2008-03-10T15:11:52Z</updated-at>
   <visible-to>Everyone</visible-to>
   <owner-id type="integer"></owner-id>
   <group-id type="integer"></group-id>
-  <author-id type="integer">3</author-id>
+  <author-id type="integer">2</author-id>
   <contact-data>
     <email-addresses>
       <email-address>
         <id type="integer">1</id>
-        <address>jane.doe@example.com</address>
+        <address>acme@example.com</address>
         <location>Work</location>
       </email-address>
     </email-addresses>
     <phone-numbers>
       <phone-number>
         <id type="integer">2</id>
-        <number>444-444-4444</number>
+        <number>666-666-6666</number>
         <location>Work</location>
       </phone-number>
       <phone-number>
         <id type="integer">3</id>
-        <number>444-555-5555</number>
-        <location>Home</location>
+        <number>666-777-7778</number>
+        <location>Fax</location>
       </phone-number>
     </phone-numbers>
   </contact-data>
@@ -100,19 +87,13 @@
       <subject_field_id type="integer">1</subject_field_id>
       <subject_field_label>Sales Region</subject_field_label>
     </subject_data>
-    <subject_data>
-      <id type="integer">5</id>
-      <value>John</value>
-      <subject_field_id type="integer">2</subject_field_id>
-      <subject_field_label>Account Manager</subject_field_label>
-    </subject_data>
   </subject_datas>
   <tags type="array">
     <tag>
-      <id type="integer">1</id>
-      <name>Partner</name>
+      <id type="integer">2</id>
+      <name>Lead</name>
     </tag>
   </tags>
-</person>
+</company>
 
-</people>
+</companies>
