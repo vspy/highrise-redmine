@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'yaml'
 require 'optparse'
+
 require 'version'
+require 'config'
 
 class HighriseRedmine
   class CLI

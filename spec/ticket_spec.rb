@@ -1,10 +1,10 @@
 # coding: utf-8
 
-require 'ticket'
+require 'highrise_redmine/ticket_template'
 
-describe Ticket do
+describe HighriseRedmine::TicketTemplate do
   it "formats ticket properly" do
-    t = Ticket.new
+    t = HighriseRedmine::TicketTemplate.new
     t[:contact] = {
       :firstName => "John",
       :lastName => "Doe",
@@ -33,7 +33,7 @@ Worked in DARPA.
   end
 
   it "don't print empty lines when some contacts are missing" do
-    t = Ticket.new
+    t = HighriseRedmine::TicketTemplate.new
     t[:contact] = {
       :firstName => "John",
       :lastName => "Doe",
