@@ -1,1 +1,56 @@
 #!/usr/bin/env ruby
+
+require 'yaml'
+require 'optparse'
+require 'version'
+
+class HighriseRedmine
+  class CLI
+    # Return a structure describing the options.
+    def self.parse_options(args)
+      opts = OptionParser.new do |opts|
+        opts.banner = "Usage: highrise-redmine [-d DATABASE-FILE] CONFIG-FILE"
+
+        opts.separator " "
+
+        opts.separator "Options:"
+
+        opts.on("-d", "--db DATABASE-FILE",
+          "Use specified configuration file (highrise-redmine.db by default)") do |file|
+          # Do something
+        end
+
+        opts.separator "Common Options:"
+
+        opts.on("-v", "--version", "Print the version") do |v|
+          puts "Highrise->Redmine v#{HighriseRedmine::Version}"
+          exit
+        end
+
+        opts.on_tail("-h", "--help", "Show this message") do
+          puts opts
+          exit
+        end
+      end
+
+      opts.separator ""
+
+      opts.parse!(args)
+    end
+
+    def self.start(configFile)
+      puts("TODO!")
+      exit
+    end
+
+  end
+end
+
+# Help is the default.
+ARGV << '-h' if ARGV.empty? && $stdin.tty?
+
+# Process options
+HighriseRedmine::CLI.parse_options(ARGV) if $stdin.tty?
+
+HighriseRedmine::CLI.start(ARGF)
+
