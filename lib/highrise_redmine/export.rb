@@ -15,12 +15,12 @@ class HighriseRedmine
       begin 
         data = @src.getCompanies(offset)
 
-        data.each do |company|
+        data.each { |company|
           id = company[:id]
           name = company[:name]
-          #TODO: really save it
+          @storage.addCompany(id,name)
           puts "#{id}->#{name}"
-        end
+        }
  
         offset += data.length
       end while data.length == @src.batchSize
@@ -32,17 +32,17 @@ class HighriseRedmine
       begin 
         data = @src.getContacts(offset)
 
-        data.each do |contact|
-          #TODO: really save it, update it, etc
-          puts "#{contact[:lastName]} #{contact[:firstName]}"
-          count ++
-        end
-        
+#        data.each { |contact|
+#          #TODO: really save it, update it, etc
+#          puts "#{contact[:lastName]} #{contact[:firstName]}"
+#          count ++
+#        }
+#        
         offset += data.length
       end while data.length == @src.batchSize
 
       puts 'Done.' 
-      puts 'Successfully exported ${count} contacts' 
+      puts "Successfully exported #{count} contacts"
     end
     
   end

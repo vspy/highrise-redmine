@@ -4,6 +4,9 @@ require 'optparse'
 
 require 'highrise_redmine/version'
 require 'highrise_redmine/config'
+require 'highrise_redmine/http'
+require 'highrise_redmine/source'
+require 'highrise_redmine/export'
 
 class HighriseRedmine
   class CLI
@@ -39,8 +42,9 @@ class HighriseRedmine
       opts.parse!(args)
     end
 
-    def self.start(configFile)
-      config = Config.new(configFile)
+    def self.start(config_stream)
+
+      config = Config.new( config_stream.read )
       http = Http.new
       src = Source.new(config.src, http)
       #TODO: storage
