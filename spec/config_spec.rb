@@ -9,8 +9,13 @@ describe HighriseRedmine::Config do
       File.open(File.dirname(__FILE__)+"/config_full.yaml").read
     )
     c.srcUrl.should == 'http://example.org/source/'
-    c.srcAuthToken.should == 'secret'
-    c.dst.should == 'http://example.org/destination/'
+    c.srcAuthToken.should == 'srcsecret'
+    c.dstUrl.should == 'http://example.org/destination/'
+    c.dstAuthToken.should == 'dstsecret'
+    c.projectId.should == 45
+    c.trackerId.should == 44
+    c.statusId.should == 43
+    c.priorityId.should == 42
   end
 
 end
