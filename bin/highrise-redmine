@@ -2,8 +2,8 @@
 
 require 'optparse'
 
-require 'version'
-require 'config'
+require 'highrise_redmine/version'
+require 'highrise_redmine/config'
 
 class HighriseRedmine
   class CLI
@@ -40,7 +40,14 @@ class HighriseRedmine
     end
 
     def self.start(configFile)
-      puts("TODO!")
+      config = Config.new(configFile)
+      http = Http.new
+      src = Source.new(config.src, http)
+      #TODO: storage
+      #TODO: destination
+
+      export = Export.new(src,nil,nil)
+      export.run
       exit
     end
 
