@@ -6,12 +6,15 @@ require 'highrise_redmine/version'
 require 'highrise_redmine/config'
 require 'highrise_redmine/http'
 require 'highrise_redmine/source'
+require 'highrise_redmine/storage'
 require 'highrise_redmine/export'
 
 class HighriseRedmine
   class CLI
     # Return a structure describing the options.
     def self.parse_options(args)
+      dbFile = "./highrise-redmine.db"
+
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: highrise-redmine [-d DATABASE-FILE] CONFIG-FILE"
 
@@ -21,7 +24,7 @@ class HighriseRedmine
 
         opts.on("-d", "--db DATABASE-FILE",
           "Use specified configuration file (highrise-redmine.db by default)") do |file|
-          # Do something
+          dbFile = file
         end
 
         opts.separator "Common Options:"
@@ -40,17 +43,18 @@ class HighriseRedmine
       opts.separator ""
 
       opts.parse!(args)
+      dbFile
     end
 
-    def self.start(config_stream)
+    def self.start(config_stream, dbFile)
 
       config = Config.new( config_stream.read )
       http = Http.new
       src = Source.new(config.srcUrl, http, config.srcAuthToken)
-      #TODO: storage
+      storage = Storage.new(dbFile)
       #TODO: destination
 
-      export = Export.new(src,nil,nil)
+      export = Export.new(src, storage,nil)
       export.run
       exit
     end
@@ -62,7 +66,7 @@ end
 ARGV << '-h' if ARGV.empty? && $stdin.tty?
 
 # Process options
-HighriseRedmine::CLI.parse_options(ARGV) if $stdin.tty?
+dbFile = HighriseRedmine::CLI.parse_options(ARGV) if $stdin.tty?
 
-HighriseRedmine::CLI.start(ARGF)
+HighriseRedmine::CLI.start(ARGF, dbFile)
 

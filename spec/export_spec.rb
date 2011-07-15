@@ -19,7 +19,7 @@ describe HighriseRedmine::Export do
       {:id=>"id5",:name=>"name5"}
     ])
     src.stub!(:batchSize).and_return(3)
-    src.stub!(:getContacts).and_return([])
+    src.stub!(:getPersons).and_return([])
     
     storage.stub!(:addCompany)
     # first
@@ -36,21 +36,21 @@ describe HighriseRedmine::Export do
     storage = mock("storage")
     dst = mock("dst")
 
-    src.stub!(:getContacts)
-    src.should_receive(:getContacts).once.with(0).and_return([
+    src.stub!(:getPersons)
+    src.should_receive(:getPersons).once.with(0).and_return([
       {:id=>"id1",:firstName=>"John",:lastName=>"Doe",:companyId=>"foo"},
       {:id=>"id2",:firstName=>"Jane",:lastName=>"Doe",:companyId=>"bar"},
       {:id=>"id3",:firstName=>"Alice",:lastName=>"A.",:companyId=>"foo"}
     ])
-    src.should_receive(:getContacts).once.with(3).and_return([
+    src.should_receive(:getPersons).once.with(3).and_return([
       {:id=>"id4",:firstName=>"Bob",:lastName=>"B.",:companyId=>"acme"},
       {:id=>"id5",:firstName=>"Carl",:lastName=>"C."}
     ])
     src.stub!(:batchSize).and_return(3)
     src.stub!(:getCompanies).and_return([])
-    storage.should_not_receive(:getCompany).with("foo")
-    storage.should_not_receive(:getCompany).with("bar")
-    storage.should_receive(:getCompany).once.with("acme").and_return("ACME Inc.")
+    storage.should_not_receive(:findCompany).with("foo")
+    storage.should_not_receive(:findCompany).with("bar")
+    storage.should_receive(:findCompany).once.with("acme").and_return("ACME Inc.")
    
     storage.stub!(:isProcessed)
     storage.should_receive(:isProcessed).once.with("p","id1").and_return(true)

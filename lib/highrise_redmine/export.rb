@@ -32,23 +32,23 @@ class HighriseRedmine
       offset = 0
 
       begin 
-        data = @src.getContacts(offset)
+        data = @src.getPersons(offset)
 
-        data.each { |contact|
-          id = contact[:id]
-          companyId = contact[:companyId]
+        data.each { |person|
+          id = person[:id]
+          companyId = person[:companyId]
 
           if (@storage.isProcessed('p',id))
-            puts "* #{contact[:lastName]} #{contact[:firstName]}"
+            puts "* #{person[:lastName]} #{person[:firstName]}"
           else 
             if (companyId) 
-              contact[:company] = @storage.getCompany(companyId)
+              person[:company] = @storage.findCompany(companyId)
             end
 
             #TODO: really save it, update it, etc
 
-            @storage.markAsProcessed('p', contact[:id])
-            puts "+ #{contact[:lastName]} #{contact[:firstName]}"
+            @storage.markAsProcessed('p', id)
+            puts "+ #{person[:lastName]} #{person[:firstName]}"
             count+=1
           end
         }
