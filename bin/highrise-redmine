@@ -46,7 +46,7 @@ class HighriseRedmine
 
       config = Config.new( config_stream.read )
       http = Http.new
-      src = Source.new(config.src, http)
+      src = Source.new(config.srcUrl, http, config.srcAuthToken)
       #TODO: storage
       #TODO: destination
 

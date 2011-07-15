@@ -1,2 +1,5 @@
-src: http://example.org/source/
+src: 
+  url: http://example.org/source/
+  authToken: secret
+
 dst: http://example.org/destination/

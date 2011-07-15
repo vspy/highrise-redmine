@@ -7,9 +7,9 @@ describe HighriseRedmine::Source do
     response = File.open(File.dirname(__FILE__)+"/companies.xml").read
     http = mock("http")
     http.stub!(:get).and_return(response)
-    http.should_receive(:get).with(URI.parse('http://example.org/source/companies.xml?n=42'))
+    http.should_receive(:get).with(URI.parse('http://example.org/source/companies.xml?n=42'), "token", anything())
 
-    src = HighriseRedmine::Source.new('http://example.org/source', http)
+    src = HighriseRedmine::Source.new('http://example.org/source', http, "token")
     result = src.getCompanies(42)
 
     result.length.should == 2
@@ -19,9 +19,9 @@ describe HighriseRedmine::Source do
     response = File.open(File.dirname(__FILE__)+"/persons.xml").read
     http = mock("http")
     http.stub!(:get).and_return(response)
-    http.should_receive(:get).with(URI.parse('http://example.org/source/people.xml?n=42'))
+    http.should_receive(:get).with(URI.parse('http://example.org/source/people.xml?n=42'), "token", anything())
 
-    src = HighriseRedmine::Source.new('http://example.org/source', http)
+    src = HighriseRedmine::Source.new('http://example.org/source', http, "token")
     result = src.getPersons(42)
 
     result.length.should == 2

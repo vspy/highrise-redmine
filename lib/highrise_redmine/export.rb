@@ -1,3 +1,5 @@
+require 'highrise_redmine/highrise_parser'
+
 class HighriseRedmine
 
   class Export

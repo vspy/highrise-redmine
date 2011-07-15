@@ -8,7 +8,8 @@ describe HighriseRedmine::Config do
     c = HighriseRedmine::Config.new(
       File.open(File.dirname(__FILE__)+"/config_full.yaml").read
     )
-    c.src.should == 'http://example.org/source/'
+    c.srcUrl.should == 'http://example.org/source/'
+    c.srcAuthToken.should == 'secret'
     c.dst.should == 'http://example.org/destination/'
   end
 
