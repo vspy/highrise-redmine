@@ -19,7 +19,7 @@ class HighriseRedmine
           id = company[:id]
           name = company[:name]
           @storage.addCompany(id,name)
-          puts "#{id}->#{name}"
+          puts "#{id} -> #{name}"
         }
  
         offset += data.length
@@ -32,12 +32,25 @@ class HighriseRedmine
       begin 
         data = @src.getContacts(offset)
 
-#        data.each { |contact|
-#          #TODO: really save it, update it, etc
-#          puts "#{contact[:lastName]} #{contact[:firstName]}"
-#          count ++
-#        }
-#        
+        data.each { |contact|
+          id = contact[:id]
+          companyId = contact[:companyId]
+
+          if (@storage.isProcessed('p',id))
+            puts "* #{contact[:lastName]} #{contact[:firstName]}"
+          else 
+            if (companyId) 
+              contact[:company] = @storage.getCompany(companyId)
+            end
+
+            #TODO: really save it, update it, etc
+
+            @storage.markAsProcessed('p', contact[:id])
+            puts "+ #{contact[:lastName]} #{contact[:firstName]}"
+            count+=1
+          end
+        }
+
         offset += data.length
       end while data.length == @src.batchSize
 
