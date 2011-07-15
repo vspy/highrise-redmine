@@ -16,7 +16,7 @@ class HighriseRedmine
     end
 
     def path(url) 
-      (url.query.blank?) ? url.path : "#{url.path}?#{url.query}"
+      (url.query.nil?) ? url.path : "#{url.path}?#{url.query}"
     end
 
     def getResponse(url, request)
