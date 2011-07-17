@@ -10,6 +10,12 @@ class HighriseRedmine
       getResponse(url, request) 
     end   
 
+    def delete(url, username = nil, password = nil)
+      request = Net::HTTP::Delete.new(path(url))
+      setPassword(request, username, password) 
+      getResponse(url, request) 
+    end   
+
     def post(url, body, username = nil, password = nil)
       request = Net::HTTP::Post.new(path(url))
       request.body = body

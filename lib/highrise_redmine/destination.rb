@@ -9,7 +9,7 @@ class HighriseRedmine
     end
 
     def deleteIssue(id)
-      ## TODO!!!!
+      @http.delete( URI.parse(@baseUrl+"/issues/#{id}.xml"), @authToken, "X" )
     end
 
     def createIssue(subject, body)
