@@ -11,6 +11,17 @@ class HighriseRedmine
     end 
 
     def run
+
+      toDelete = @storage.recover
+      if (toDelete.length > 0) 
+        puts '... Removing incomplete issues from redmine'
+
+        toDelete.each { |id|
+          @dst.deleteIssue(id)
+        }
+        @storage.onRecoverFinished
+      end
+
       puts '... Updating companies list'
       offset = 0
 
@@ -38,16 +49,19 @@ class HighriseRedmine
           id = person[:id]
           companyId = person[:companyId]
 
-          if (@storage.isProcessed('p',id))
+          if (@storage.isProcessed(id))
             puts "* #{person[:lastName]} #{person[:firstName]}"
           else 
+            @storage.markAsStarted(id)
             if (companyId) 
               person[:company] = @storage.findCompany(companyId)
             end
 
             #TODO: really save it, update it, etc
+            #
+            #@storage.markTargetId(id, redmineId)
 
-            @storage.markAsProcessed('p', id)
+            @storage.markAsProcessed(id)
             puts "+ #{person[:lastName]} #{person[:firstName]}"
             count+=1
           end

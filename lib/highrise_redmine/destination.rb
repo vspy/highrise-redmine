@@ -9,6 +9,7 @@ class HighriseRedmine
     end
 
     def deleteIssue(id)
+      ## TODO!!!!
     end
 
     def createIssue(subject, body)

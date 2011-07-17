@@ -3,6 +3,28 @@ require 'highrise_redmine/export'
 
 describe HighriseRedmine::Export do
 
+  it "recovers if something is unclean" do
+    src = mock("src")
+    storage = mock("storage")
+    dst = mock("dst")
+    storage.stub!(:recover).and_return(["id1","id2","id3"])
+    storage.stub!(:onRecoverFinished)
+
+    src.stub!(:getCompanies).and_return([])
+    src.stub!(:getPersons).and_return([])
+    src.stub!(:batchSize).and_return(500)
+
+    dst.stub!(:deleteIssue)
+    dst.should_receive(:deleteIssue).with("id1")
+    dst.should_receive(:deleteIssue).with("id2")
+    dst.should_receive(:deleteIssue).with("id3")
+
+    storage.should_receive(:onRecoverFinished)
+
+    export = HighriseRedmine::Export.new(src, storage, dst)
+    export.run
+  end
+
   it "processes all the companies" do
     src = mock("src")
     storage = mock("storage")
@@ -21,6 +43,7 @@ describe HighriseRedmine::Export do
     src.stub!(:batchSize).and_return(3)
     src.stub!(:getPersons).and_return([])
     
+    storage.stub!(:recover).and_return([])
     storage.stub!(:addCompany)
     # first
     storage.should_receive(:addCompany).with("id1","name1")
@@ -52,16 +75,21 @@ describe HighriseRedmine::Export do
     storage.should_not_receive(:findCompany).with("bar")
     storage.should_receive(:findCompany).once.with("acme").and_return("ACME Inc.")
    
+    storage.stub!(:recover).and_return([])
     storage.stub!(:isProcessed)
-    storage.should_receive(:isProcessed).once.with("p","id1").and_return(true)
-    storage.should_receive(:isProcessed).once.with("p","id2").and_return(true)
-    storage.should_receive(:isProcessed).once.with("p","id3").and_return(true)
-    storage.should_receive(:isProcessed).once.with("p","id4").and_return(false)
-    storage.should_receive(:isProcessed).once.with("p","id5").and_return(false)
+    storage.should_receive(:isProcessed).once.with("id1").and_return(true)
+    storage.should_receive(:isProcessed).once.with("id2").and_return(true)
+    storage.should_receive(:isProcessed).once.with("id3").and_return(true)
+    storage.should_receive(:isProcessed).once.with("id4").and_return(false)
+    storage.should_receive(:isProcessed).once.with("id5").and_return(false)
+
+    storage.stub!(:markAsStarted)
+    storage.should_receive(:markAsStarted).once.with("id4")
+    storage.should_receive(:markAsStarted).once.with("id5")
 
     storage.stub!(:markAsProcessed)
-    storage.should_receive(:markAsProcessed).once.with("p","id4")
-    storage.should_receive(:markAsProcessed).once.with("p","id5")
+    storage.should_receive(:markAsProcessed).once.with("id4")
+    storage.should_receive(:markAsProcessed).once.with("id5")
 
     ## TODO: check if saved
  

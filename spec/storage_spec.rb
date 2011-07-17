@@ -17,11 +17,49 @@ describe HighriseRedmine::Storage do
   it "marks data as processed and finds if it is already processed" do
     tempFile = Tempfile.new('storage_test')
     s = HighriseRedmine::Storage.new(tempFile)
-    s.markAsProcessed("a","1")
-    s.markAsProcessed("b","2")
-    s.isProcessed("a","1").should == true
-    s.isProcessed("b","1").should == false
-    s.isProcessed("a","2").should == false
-    s.isProcessed("b","2").should == true
+    s.markAsStarted("1")
+    s.markAsStarted("2")
+    s.isProcessed("1").should == false
+    s.isProcessed("2").should == false
+    s.isProcessed("3").should == false
+    s.markAsProcessed("1")
+    s.markAsProcessed("2")
+    s.isProcessed("1").should == true
+    s.isProcessed("2").should == true
+    s.isProcessed("3").should == false
   end
+
+  it "finds target ids to delete when processed incompletely" do
+    tempFile = Tempfile.new('storage_test')
+    s = HighriseRedmine::Storage.new(tempFile)
+
+    s.isProcessed("1").should == false
+    s.isProcessed("2").should == false
+
+    s.markAsStarted("1")
+    s.markAsStarted("2")
+
+    s.isProcessed("1").should == false
+    s.isProcessed("1").should == false
+
+    s.recover.should == []
+
+    # mark as started again, because recover should drop old 
+    # records without target id
+    s.markAsStarted("1")
+    s.markAsStarted("2")
+    s.markTargetId("1","redmine_1")
+    s.recover.should == ["redmine_1"]
+
+
+    # mark as started again, because recover should drop old 
+    # records without target id
+    s.markAsStarted("2")
+    s.markTargetId("2","redmine_2")
+    s.recover.should == ["redmine_1","redmine_2"]
+
+    s.onRecoverFinished
+    s.recover.should == []
+  end
+
 end
