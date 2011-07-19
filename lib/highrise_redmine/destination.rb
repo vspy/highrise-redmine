@@ -2,10 +2,10 @@ class HighriseRedmine
 
   class Destination 
 
-    def initialize(baseUrl, http, authToken) 
-      @baseUrl = baseUrl
+    def initialize(config, http) 
+      @baseUrl = config.dstUrl
       @http = http
-      @authToken = authToken
+      @authToken = config.dstAuthToken
     end
 
     def deleteIssue(id)

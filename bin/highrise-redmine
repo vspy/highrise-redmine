@@ -4,10 +4,12 @@ require 'optparse'
 
 require 'highrise_redmine/version'
 require 'highrise_redmine/config'
+require 'highrise_redmine/export'
 require 'highrise_redmine/http'
 require 'highrise_redmine/source'
 require 'highrise_redmine/storage'
-require 'highrise_redmine/export'
+require 'highrise_redmine/usermapper'
+require 'highrise_redmine/destination'
 
 class HighriseRedmine
   class CLI
