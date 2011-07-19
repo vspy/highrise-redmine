@@ -21,7 +21,7 @@ describe HighriseRedmine::Export do
 
     storage.should_receive(:onRecoverFinished)
 
-    export = HighriseRedmine::Export.new(src, storage, dst)
+    export = HighriseRedmine::Export.new(src, storage, nil, dst)
     export.run
   end
 
@@ -50,7 +50,7 @@ describe HighriseRedmine::Export do
     # and last
     storage.should_receive(:addCompany).with("id5","name5")
 
-    export = HighriseRedmine::Export.new(src, storage, dst)
+    export = HighriseRedmine::Export.new(src, storage, nil, dst)
     export.run
   end
 
@@ -93,7 +93,7 @@ describe HighriseRedmine::Export do
 
     ## TODO: check if saved
  
-    export = HighriseRedmine::Export.new(src, storage, dst)
+    export = HighriseRedmine::Export.new(src, storage, nil, dst)
     export.run
   end
 

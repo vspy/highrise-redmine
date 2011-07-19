@@ -5,10 +5,10 @@ class HighriseRedmine
   class Source 
     attr_accessor :batchSize
 
-    def initialize(baseUrl, http, authToken) 
-      @baseUrl = baseUrl
+    def initialize(config, http) 
+      @baseUrl = config.srcUrl
       @http = http
-      @authToken = authToken
+      @authToken = config.srcAuthToken
       @batchSize = 500
     end
 

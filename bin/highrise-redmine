@@ -50,11 +50,12 @@ class HighriseRedmine
 
       config = Config.new( config_stream.read )
       http = Http.new
-      src = Source.new(config.srcUrl, http, config.srcAuthToken)
+      src = Source.new(config, http)
       storage = Storage.new(dbFile)
-      #TODO: destination
+      mapper = UserMapper.new(config) 
+      dst = Destination.new(config, http)
 
-      export = Export.new(src, storage,nil)
+      export = Export.new(src, storage, mapper, dst)
       export.run
       exit
     end

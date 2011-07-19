@@ -4,9 +4,10 @@ class HighriseRedmine
 
   class Export
  
-    def initialize(src, storage, dst)
+    def initialize(src, storage, mapper, dst)
       @src = src
       @storage = storage
+      @mapper = mapper
       @dst = dst
     end 
 
