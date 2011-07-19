@@ -31,5 +31,14 @@ describe HighriseRedmine::UserMapper do
     m.map("dave").should == nil
   end
 
+  it "works when no mapping in the configuration file" do
+    m = HighriseRedmine::UserMapper.new(
+          HighriseRedmine::Config.new(
+            File.open(File.dirname(__FILE__)+"/config_nomapping.yaml").read
+          )
+        )
+    m.map("dave").should == "alice"
+  end
+
 end
 

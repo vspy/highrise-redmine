@@ -8,7 +8,7 @@ class HighriseRedmine
     end
 
     def map(name)
-      @mapping[name] || @defaultMapping
+      (@mapping?@mapping[name]:nil) || @defaultMapping
     end
     
   end
