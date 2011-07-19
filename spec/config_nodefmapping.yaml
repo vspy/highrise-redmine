@@ -12,4 +12,3 @@ dst:
   mapping:
     alice: bob
     clara: dave
-  default_mapping: edward

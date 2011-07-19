@@ -13,7 +13,9 @@ class HighriseRedmine
     end
 
     def createIssue(subject, body)
-      @http.post( URI.parse(@baseUrl+"/issues.xml"), @authToken, "X" )
+      
+      content = 
+      @http.post( URI.parse(@baseUrl+"/issues.xml"), content, @authToken, "X" )
     end
 
   end

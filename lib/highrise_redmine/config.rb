@@ -5,7 +5,7 @@ class HighriseRedmine
   class Config
     attr_accessor :srcUrl, :srcAuthToken, :dstUrl,
                   :dstAuthToken, :projectId, :statusId,
-                  :priorityId, :trackerId
+                  :priorityId, :trackerId, :mapping, :defaultMapping
  
     def initialize(body)
       yaml = YAML.load( body )
@@ -21,6 +21,9 @@ class HighriseRedmine
       @trackerId =  dst['tracker'] || dst['tracker_id'] || (raise "tracker_id is not specified")
       @priorityId =  dst['priority'] || dst['priority_id'] || (raise "priority_id is not specified")
       @statusId =  dst['status'] || dst['status_id'] || (raise "status_id is not specified")
+
+      @mapping = dst['mapping']
+      @defaultMapping = dst['default_mapping']
     end
   end
 

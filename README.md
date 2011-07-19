@@ -12,4 +12,8 @@ dst:
   tracker_id: 1
   priority_id: 1
   status_id: 1
+  mapping:
+    alice: bob
+    clara: desmond
+  default_mapping: admin
 ```
