@@ -1,3 +1,5 @@
+require 'highrise_redmine/redmine_template'
+
 class HighriseRedmine
 
   class Destination 
@@ -9,13 +11,13 @@ class HighriseRedmine
     end
 
     def deleteIssue(id)
-      @http.delete( URI.parse(@baseUrl+"/issues/#{id}.xml"), @authToken, "X" )
+      @http.delete( URI.join(@baseUrl, "issues/#{id}.xml"), @authToken, "X" )
     end
 
-    def createIssue(subject, body)
-      
-      content = 
-      @http.post( URI.parse(@baseUrl+"/issues.xml"), content, @authToken, "X" )
+    def createIssue(content)
+      template = RedmineTemplate.new
+      template[:content] = content
+      @http.post( URI.join(@baseUrl, "issues.xml"), template.render, @authToken, "X" )
     end
 
   end

@@ -1,14 +1,20 @@
 require 'highrise_redmine/highrise_parser'
+require 'highrise_redmine/ticket_template'
 
 class HighriseRedmine
 
   class Export
  
-    def initialize(src, storage, mapper, dst)
+    def initialize(config, src, storage, mapper, dst)
       @src = src
       @storage = storage
       @mapper = mapper
       @dst = dst
+
+      @projectId = config.projectId
+      @trackerId = config.trackerId
+      @priorityId = config.priorityId
+      @statusId = config.statusId
     end 
 
     def run
@@ -58,6 +64,20 @@ class HighriseRedmine
               person[:company] = @storage.findCompany(companyId)
             end
 
+            template = TicketTemplate.new
+            template[:contact] = person
+            body = template.render
+
+            redmineId = @dst.createIssue({
+              :subject => "#{person[:lastName]} #{person[:firstName]}",
+              :body => body,
+              :project_id => @projectId,
+              :priority_id => @priorityId,
+              :tracker_id => @trackerId,
+              :status_id => @statusId
+            ## TODO: assigned to id
+            })
+            puts "created: #{redmineId}"
             #TODO: really save it, update it, etc
             #
             #@storage.markTargetId(id, redmineId)

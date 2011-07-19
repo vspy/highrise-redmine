@@ -21,7 +21,13 @@ describe HighriseRedmine::Export do
 
     storage.should_receive(:onRecoverFinished)
 
-    export = HighriseRedmine::Export.new(src, storage, nil, dst)
+    config = mock("config")
+    config.stub!(:projectId).and_return(1)
+    config.stub!(:priorityId).and_return(2)
+    config.stub!(:trackerId)
+    config.stub!(:statusId)
+
+    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run
   end
 
@@ -50,7 +56,13 @@ describe HighriseRedmine::Export do
     # and last
     storage.should_receive(:addCompany).with("id5","name5")
 
-    export = HighriseRedmine::Export.new(src, storage, nil, dst)
+    config = mock("config")
+    config.stub!(:projectId).and_return(1)
+    config.stub!(:priorityId).and_return(2)
+    config.stub!(:trackerId)
+    config.stub!(:statusId)
+
+    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run
   end
 
@@ -58,6 +70,7 @@ describe HighriseRedmine::Export do
     src = mock("src")
     storage = mock("storage")
     dst = mock("dst")
+    dst.stub!(:createIssue)
 
     src.stub!(:getPersons)
     src.should_receive(:getPersons).once.with(0).and_return([
@@ -92,8 +105,14 @@ describe HighriseRedmine::Export do
     storage.should_receive(:markAsProcessed).once.with("id5")
 
     ## TODO: check if saved
+
+    config = mock("config")
+    config.stub!(:projectId).and_return(1)
+    config.stub!(:priorityId).and_return(2)
+    config.stub!(:trackerId)
+    config.stub!(:statusId)
  
-    export = HighriseRedmine::Export.new(src, storage, nil, dst)
+    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run
   end
 

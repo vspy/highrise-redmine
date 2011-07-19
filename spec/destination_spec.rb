@@ -9,7 +9,7 @@ describe HighriseRedmine::Destination do
     http.should_receive(:delete).with(URI.parse('http://example.org/destination/issues/42.xml'), "token", anything())
 
     config = mock("config")
-    config.stub!(:dstUrl).and_return('http://example.org/destination')
+    config.stub!(:dstUrl).and_return('http://example.org/destination/')
     config.stub!(:dstAuthToken).and_return('token')
 
     dst = HighriseRedmine::Destination.new(config, http)

@@ -10,7 +10,7 @@ describe HighriseRedmine::Source do
     http.should_receive(:get).with(URI.parse('http://example.org/source/companies.xml?n=42'), "token", anything())
 
     config = mock("config")
-    config.stub!(:srcUrl).and_return('http://example.org/source')
+    config.stub!(:srcUrl).and_return('http://example.org/source/')
     config.stub!(:srcAuthToken).and_return('token')
 
     src = HighriseRedmine::Source.new(config, http)
@@ -26,7 +26,7 @@ describe HighriseRedmine::Source do
     http.should_receive(:get).with(URI.parse('http://example.org/source/people.xml?n=42'), "token", anything())
 
     config = mock("config")
-    config.stub!(:srcUrl).and_return('http://example.org/source')
+    config.stub!(:srcUrl).and_return('http://example.org/source/')
     config.stub!(:srcAuthToken).and_return('token')
 
     src = HighriseRedmine::Source.new(config, http)

@@ -13,12 +13,12 @@ class HighriseRedmine
     end
 
     def getCompanies(offset)
-      body = @http.get( URI.parse(@baseUrl+"/companies.xml?n=#{offset}"), @authToken, "X" )
+      body = @http.get( URI.join(@baseUrl, "companies.xml?n=#{offset}"), @authToken, "X" )
       HighriseRedmine::HighriseParser.parseCompanies(body)
     end
 
     def getPersons(offset)
-      body = @http.get( URI.parse(@baseUrl+"/people.xml?n=#{offset}"), @authToken, "X" )
+      body = @http.get( URI.join(@baseUrl, "people.xml?n=#{offset}"), @authToken, "X" )
       HighriseRedmine::HighriseParser.parsePersons(body)
     end
 

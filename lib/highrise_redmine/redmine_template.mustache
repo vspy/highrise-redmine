@@ -1,0 +1,21 @@
+{{#content}}
+<?xml version="1.0"?>
+<issue>
+  <subject>{{subject}}</subject>
+  <project_id>{{project_id}}</project_id>
+  <priority_id>{{priority_id}}</priority_id>
+{{! category_id, assigned_to_id and status_id are optional }}
+{{#category_id}}
+  <category_id>{{category_id}}</category_id>
+{{/category_id}}
+{{#status_id}}
+  <status_id>{{status_id}}</status_id>
+{{/status_id}}
+{{#assigned_to_id}}
+  <assigned_to_id>{{assigned_to_id}}</assigned_to_id>
+{{/assigned_to_id}}
+  <description>
+    {{body}}
+  </description>
+</issue>
+{{/content}}
