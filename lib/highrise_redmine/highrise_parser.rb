@@ -32,7 +32,8 @@ class HighriseRedmine
           :lastName => person['last-name'][0],
           :title => person['title'][0],
           :companyId => person['company-id'][0]['content'],
-          :tags => tags
+          :tags => tags,
+          :background => person['background'][0]
         }
       end
     

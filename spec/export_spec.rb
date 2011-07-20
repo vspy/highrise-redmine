@@ -74,12 +74,12 @@ describe HighriseRedmine::Export do
 
     src.stub!(:getPersons)
     src.should_receive(:getPersons).once.with(0).and_return([
-      {:id=>"id1",:firstName=>"John",:lastName=>"Doe",:companyId=>"foo"},
-      {:id=>"id2",:firstName=>"Jane",:lastName=>"Doe",:companyId=>"bar"},
+      {:id=>"id1",:firstName=>"John",:lastName=>"Doe",:companyId=>"foo",:tags=>["foo","bar"]},
+      {:id=>"id2",:firstName=>"Jane",:lastName=>"Doe",:companyId=>"bar",:tags=>["partner"]},
       {:id=>"id3",:firstName=>"Alice",:lastName=>"A.",:companyId=>"foo"}
     ])
     src.should_receive(:getPersons).once.with(3).and_return([
-      {:id=>"id4",:firstName=>"Bob",:lastName=>"B.",:companyId=>"acme"},
+      {:id=>"id4",:firstName=>"Bob",:lastName=>"B.",:companyId=>"acme",:tags=>["foo","bar"]},
       {:id=>"id5",:firstName=>"Carl",:lastName=>"C."}
     ])
     src.stub!(:batchSize).and_return(3)

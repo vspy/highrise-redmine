@@ -65,7 +65,11 @@ class HighriseRedmine
             end
 
             template = TicketTemplate.new
-            template[:contact] = person
+            template[:title] = person[:title]
+            template[:company] = person[:company]
+            template[:tags] = (person[:tags] || []).map { |t, i| {:first=> (i==0), :value=>t} }
+            template[:background] = person[:background]
+
             body = template.render
 
             redmineId = @dst.createIssue({

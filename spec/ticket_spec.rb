@@ -5,20 +5,18 @@ require 'highrise_redmine/ticket_template'
 describe HighriseRedmine::TicketTemplate do
   it "formats ticket properly" do
     t = HighriseRedmine::TicketTemplate.new
-    t[:contact] = {
-      :firstName => "John",
-      :lastName => "Doe",
-      :phone => "223-322-223",
-      :skype => "john.doe",
-      :icq => "424242",
-      :title => "Software Engineer",
-      :company => "Acme Inc.",
-      :tags => [{:first=>true, :value=>"nerd"},
+    t[:firstName] = "John"
+    t[:lastName] = "Doe"
+    t[:phone] = "223-322-223"
+    t[:skype] = "john.doe"
+    t[:icq] = "424242"
+    t[:title] = "Software Engineer"
+    t[:company] = "Acme Inc."
+    t[:tags] = [{:first=>true, :value=>"nerd"},
                 {:first=>false, :value=>"funny"},
                 {:first=>false, :value=>"smart"},
-                ],
-      :background => "Worked in DARPA."
-    }
+                ]
+    t[:background] = "Worked in DARPA."
     t.render.should == 
       <<-eos
 телефон: 223-322-223
@@ -34,19 +32,17 @@ Worked in DARPA.
 
   it "don't print empty lines when some contacts are missing" do
     t = HighriseRedmine::TicketTemplate.new
-    t[:contact] = {
-      :firstName => "John",
-      :lastName => "Doe",
-      :phone => "223-322-223",
-      :icq => "424242",
-      :title => "Software Engineer",
-      :company => "Acme Inc.",
-      :tags => [{:first=>true, :value=>"nerd"},
+    t[:firstName] = "John"
+    t[:lastName] = "Doe"
+    t[:phone] = "223-322-223"
+    t[:icq] = "424242"
+    t[:title] = "Software Engineer"
+    t[:company] = "Acme Inc."
+    t[:tags] = [{:first=>true, :value=>"nerd"},
                 {:first=>false, :value=>"funny"},
                 {:first=>false, :value=>"smart"},
-                ],
-      :background => "Worked in DARPA."
-    }
+                ]
+    t[:background] = "Worked in DARPA."
     t.render.should == 
       <<-eos
 телефон: 223-322-223

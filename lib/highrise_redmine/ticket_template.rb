@@ -7,8 +7,7 @@ class HighriseRedmine
     self.template_file = File.dirname(__FILE__) + '/ticket_template.mustache'
 
     def tagsNotEmpty
-      return !(( self[:contact] || {}
-             )[:tags] || []).empty?
+      return !( self[:tags] || [] ).empty?
     end
 
   end

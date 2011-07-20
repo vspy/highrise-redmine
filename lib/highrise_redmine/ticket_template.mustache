@@ -1,4 +1,3 @@
-{{#contact}}
 {{#phone}}
 телефон: {{{.}}}
 {{/phone}}
@@ -11,6 +10,7 @@ icq: {{{.}}}
 
 {{#title}}{{{.}}}{{#company}}; {{{.}}}{{/company}}{{/title}}
 {{#tagsNotEmpty}}Теги: {{#tags}}{{^first}}, {{/first}}{{{value}}}{{/tags}}{{/tagsNotEmpty}}
+{{#background}}
 
-{{{background}}}
-{{/contact}}
+{{{.}}}
+{{/background}}
