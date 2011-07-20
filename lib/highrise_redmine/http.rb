@@ -18,8 +18,6 @@ class HighriseRedmine
 
     def post(url, body, username = nil, password = nil)
       request = Net::HTTP::Post.new(path(url))
-
-      puts "the body is #{body}"
       request.body = body
       request["Content-Type"] = "application/xml"
       setPassword(request, username, password) 

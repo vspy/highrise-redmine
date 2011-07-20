@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<people type="array">
+  <person>
+    <author-id type="integer">524631</author-id>
+    <background></background>
+    <company-id type="integer">78334471</company-id>
+    <created-at type="datetime">2011-07-14T12:10:09Z</created-at>
+    <first-name>Firstname1</first-name>
+    <group-id type="integer" nil="true"></group-id>
+    <id type="integer">78334470</id>
+    <last-name>Lastname1</last-name>
+    <owner-id type="integer" nil="true"></owner-id>
+    <title></title>
+    <updated-at type="datetime">2011-07-14T12:10:10Z</updated-at>
+    <visible-to>Everyone</visible-to>
+    <avatar-url>http://asset0.37img.com/highrise/missing/avatar.png?r=3</avatar-url>
+<contact-data>
+  <web-addresses type="array"/>
+  <addresses type="array"/>
+  <instant-messengers type="array">
+    <instant-messenger>
+      <id type="integer">67410297</id>
+      <location>Work</location>
+      <protocol>Skype</protocol>
+      <address>skypeid1</address>
+    </instant-messenger>
+    <instant-messenger>
+      <id type="integer">67410298</id>
+      <location>Work</location>
+      <protocol>Skype</protocol>
+      <address>skypeid1a</address>
+    </instant-messenger>
+  </instant-messengers>
+  <twitter-accounts type="array"/>
+  <email-addresses type="array"/>
+  <phone-numbers type="array"/>
+</contact-data>
+  </person>
+  <person>
+    <author-id type="integer">524631</author-id>
+    <background>hey! that is the background!!!</background>
+    <company-id type="integer">78705073</company-id>
+    <created-at type="datetime">2011-07-18T05:38:17Z</created-at>
+    <first-name>Firstname2</first-name>
+    <group-id type="integer" nil="true"></group-id>
+    <id type="integer">78705072</id>
+    <last-name>Lastname2</last-name>
+    <owner-id type="integer" nil="true"></owner-id>
+    <title>Tech.Writing dept. lead</title>
+    <updated-at type="datetime">2011-07-18T05:38:17Z</updated-at>
+    <visible-to>Everyone</visible-to>
+    <avatar-url>http://asset0.37img.com/highrise/missing/avatar.png?r=3</avatar-url>
+<contact-data>
+  <web-addresses type="array"/>
+  <addresses type="array"/>
+  <instant-messengers type="array">
+    <instant-messenger>
+      <id type="integer">67721364</id>
+      <location>Work</location>
+      <protocol>Skype</protocol>
+      <address>skypeid2</address>
+    </instant-messenger>
+  </instant-messengers>
+  <twitter-accounts type="array"/>
+  <email-addresses type="array">
+    <email-address>
+      <address>somebody@example.org</address>
+      <id type="integer">38222845</id>
+      <location>Work</location>
+    </email-address>
+  </email-addresses>
+  <phone-numbers type="array">
+    <phone-number>
+      <id type="integer">67721363</id>
+      <location>Mobile</location>
+      <number>+79130000000</number>
+    </phone-number>
+  </phone-numbers>
+</contact-data>
+  </person>
+</people>
+

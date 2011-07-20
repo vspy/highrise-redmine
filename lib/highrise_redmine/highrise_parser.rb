@@ -25,19 +25,22 @@ class HighriseRedmine
 
       doc['person'].each do |person|
         tags = ((person['tags'] || [{"tag"=>[]}])[0]["tag"] || []).map{|t| t['name'][0] }
-
         persons << {
           :id => person['id'][0]['content'],
           :firstName => person['first-name'][0],
           :lastName => person['last-name'][0],
-          :title => person['title'][0],
+          :title => normalize(person['title'][0]),
           :companyId => person['company-id'][0]['content'],
           :tags => tags,
-          :background => person['background'][0]
+          :background => normalize(person['background'][0])
         }
       end
     
       return persons
+    end
+
+    def self.normalize(s)
+      (s == nil || s == {})?'':s
     end
 
   end

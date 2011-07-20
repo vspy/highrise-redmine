@@ -24,6 +24,27 @@ describe HighriseRedmine::HighriseParser do
     result[1][:background].should == "A popular girl for random data"
   end
 
+  it "reads persons sample data, retreived from real highrise instance correctly" do
+    dir = File.dirname(__FILE__) 
+    file = File.open(dir+"/persons-real.xml")
+    content = file.read
+    result = HighriseRedmine::HighriseParser.parsePersons(content)
+
+    result.length.should == 2
+    result[0][:id].should == "78334470"
+    result[1][:id].should == "78705072"
+    result[0][:firstName].should == "Firstname1"
+    result[1][:firstName].should == "Firstname2"
+    result[0][:lastName].should == "Lastname1"
+    result[1][:lastName].should == "Lastname2"
+    result[0][:title].should == ""
+    result[1][:title].should == "Tech.Writing dept. lead"
+    result[0][:tags].should == []
+    result[1][:tags].should == []
+    result[0][:background].should == ""
+    result[1][:background].should == "hey! that is the background!!!"
+  end
+
   it "reads companies sample data correctly" do
     dir = File.dirname(__FILE__) 
     file = File.open(dir+"/companies.xml")
