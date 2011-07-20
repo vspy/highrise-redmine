@@ -14,6 +14,12 @@ describe HighriseRedmine::HighriseParser do
     result[1][:id].should == "2"
     result[0][:firstName].should == "John"
     result[1][:firstName].should == "Jane"
+    result[0][:lastName].should == "Doe"
+    result[1][:lastName].should == "Doe"
+    result[0][:title].should == "Stand-in"
+    result[1][:title].should == "Assistant"
+    result[0][:tags].should == ["Partner", "Blabber"]
+    result[1][:tags].should == []
   end
 
   it "reads companies sample data correctly" do

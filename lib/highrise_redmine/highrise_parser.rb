@@ -22,12 +22,17 @@ class HighriseRedmine
       persons = []
 
       doc = XmlSimple.xml_in(body)
+
       doc['person'].each do |person|
+        tags = ((person['tags'] || [{"tag"=>[]}])[0]["tag"] || []).map{|t| t['name'][0] }
+
         persons << {
           :id => person['id'][0]['content'],
           :firstName => person['first-name'][0],
           :lastName => person['last-name'][0],
-          :companyId => person['company-id'][0]['content']
+          :title => person['title'][0],
+          :companyId => person['company-id'][0]['content'],
+          :tags => tags
         }
       end
     

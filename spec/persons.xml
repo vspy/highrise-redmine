@@ -54,6 +54,10 @@
       <id type="integer">1</id>
       <name>Partner</name>
     </tag>
+    <tag>
+      <id type="integer">1</id>
+      <name>Blabber</name>
+    </tag>
   </tags>
 </person>
 
@@ -107,12 +111,6 @@
       <subject_field_label>Account Manager</subject_field_label>
     </subject_data>
   </subject_datas>
-  <tags type="array">
-    <tag>
-      <id type="integer">1</id>
-      <name>Partner</name>
-    </tag>
-  </tags>
 </person>
 
 </people>

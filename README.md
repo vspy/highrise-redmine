@@ -10,10 +10,10 @@ dst:
   authToken: 9228bc14...
   project_id: 1
   tracker_id: 1
-  priority_id: 1
+  priority_id: 4
   status_id: 1
   mapping:
-    alice: bob
-    clara: desmond
-  default_mapping: admin
+    alice: 2 # bob
+    clara: 3 # dave
+  default_mapping: 1 # admin
 ```
