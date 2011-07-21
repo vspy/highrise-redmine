@@ -12,7 +12,9 @@ describe HighriseRedmine::Export do
 
     src.stub!(:getCompanies).and_return([])
     src.stub!(:getPersons).and_return([])
-    src.stub!(:batchSize).and_return(500)
+    src.stub!(:companiesBatchSize).and_return(500)
+    src.stub!(:personsBatchSize).and_return(500)
+    src.stub!(:notesBatchSize).and_return(25)
 
     dst.stub!(:deleteIssue)
     dst.should_receive(:deleteIssue).with("id1")
@@ -46,7 +48,9 @@ describe HighriseRedmine::Export do
       {:id=>"id4",:name=>"name4"},
       {:id=>"id5",:name=>"name5"}
     ])
-    src.stub!(:batchSize).and_return(3)
+    src.stub!(:companiesBatchSize).and_return(3)
+    src.stub!(:personsBatchSize).and_return(500)
+    src.stub!(:notesBatchSize).and_return(25)
     src.stub!(:getPersons).and_return([])
     
     storage.stub!(:recover).and_return([])
@@ -82,7 +86,9 @@ describe HighriseRedmine::Export do
       {:id=>"id4",:firstName=>"Bob",:lastName=>"B.",:companyId=>"acme",:tags=>["foo","bar"],:created=>DateTime.now},
       {:id=>"id5",:firstName=>"Carl",:lastName=>"C.",:created=>DateTime.now}
     ])
-    src.stub!(:batchSize).and_return(3)
+    src.stub!(:companiesBatchSize).and_return(500)
+    src.stub!(:personsBatchSize).and_return(3)
+    src.stub!(:notesBatchSize).and_return(25)
     src.stub!(:getCompanies).and_return([])
     storage.should_not_receive(:findCompany).with("foo")
     storage.should_not_receive(:findCompany).with("bar")

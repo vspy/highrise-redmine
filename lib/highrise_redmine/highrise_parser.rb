@@ -18,6 +18,26 @@ class HighriseRedmine
       return companies
     end
 
+    def self.parseNotes(body)
+      notes = []
+
+      doc = XmlSimple.xml_in(body)
+
+      doc['note'].each do |note|
+        notes<<{
+          :body=>note['body'][0],
+          :attachments=>(
+            (note['attachments'] || []).map do |attachments|
+              (attachments['attachment'] || []).map do |attachment|
+                {:url=>attachment['url'][0],:name=>attachment['name'][0]}
+            end end
+          ).flatten
+        } 
+      end
+
+      notes
+    end
+
     def self.parsePersons(body) 
       persons = []
 

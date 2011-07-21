@@ -1,0 +1,49 @@
+<notes>
+
+<note>
+  <id type="integer">7</id>
+  <body>Hello world!</body>
+  <author-id type="integer">3</author-id>
+  <subject-id type="integer">1</subject-id>
+  <subject-type>#{ Party || Deal || Kase }</subject-type>
+  <subject-name>John Doe</subject-name>
+  <collection-id type="integer">1</collection-id>
+  <collection-type>#{ Deal || Kase }</collection-type>
+  <visible-to>#{Everyone || Owner || NamedGroup}</visible-to>
+  <owner-id type="integer">#{ user_id -- when visble-to is "Owner"}</owner-id>
+  <group-id type="integer">#{ group_id -- when visble-to is "NamedGroup"}</group-id>
+  <updated-at type="datetime">2007-02-27T18:42:28Z</updated-at>
+  <created-at type="datetime">2006-05-16T17:26:00Z</created-at>
+  <attachments>
+    <attachment>
+      <id type="integer">1</id>
+      <url>https://example.highrisehq.com/files/1</url>
+      <name>picture.png</name>
+      <size type="integer">72633</size>
+    </attachment>
+    <attachment>
+      <id type="integer">2</id>
+      <url>https://example.highrisehq.com/files/2</url>
+      <name>document.txt</name>
+      <size type="integer">8837</size>
+    </attachment>
+  </attachments>
+</note>
+
+<note>
+  <id type="integer">8</id>
+  <body>Love, peace and hair grease!</body>
+  <author-id type="integer">3</author-id>
+  <subject-id type="integer">1</subject-id>
+  <subject-type>#{ Party || Deal || Kase }</subject-type>
+  <subject-name>John Doe</subject-name>
+  <collection-id type="integer">1</collection-id>
+  <collection-type>#{ Deal || Kase }</collection-type>
+  <visible-to>#{Everyone || Owner || NamedGroup}</visible-to>
+  <owner-id type="integer">#{ user_id -- when visble-to is "Owner"}</owner-id>
+  <group-id type="integer">#{ group_id -- when visble-to is "NamedGroup"}</group-id>
+  <updated-at type="datetime">2007-02-27T18:42:28Z</updated-at>
+  <created-at type="datetime">2006-05-16T17:26:00Z</created-at>
+</note>
+
+</notes>

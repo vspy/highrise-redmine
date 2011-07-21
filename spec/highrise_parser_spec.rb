@@ -69,5 +69,25 @@ describe HighriseRedmine::HighriseParser do
     result[1][:name].should == "Acme Inc."
   end
 
+  it "reads notes sample data correctly" do 
+    dir = File.dirname(__FILE__) 
+    file = File.open(dir+"/notes.xml")
+    content = file.read
+    result = HighriseRedmine::HighriseParser.parseNotes(content)
+
+    result.length.should == 2
+    result[0].should == {
+      :body=>'Hello world!',
+      :attachments=>[
+        {:url=>'https://example.highrisehq.com/files/1', :name=>'picture.png'},
+        {:url=>'https://example.highrisehq.com/files/2', :name=>'document.txt'},
+      ]
+    }
+    result[1].should == {
+      :body=>'Love, peace and hair grease!',
+      :attachments=>[]
+    }
+  end
+
 end
 

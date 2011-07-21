@@ -43,7 +43,7 @@ class HighriseRedmine
         }
  
         offset += data.length
-      end while data.length == @src.batchSize
+      end while data.length == @src.companiesBatchSize
 
       puts '... Exporting contacts'
       count = 0
@@ -97,7 +97,7 @@ class HighriseRedmine
         }
 
         offset += data.length
-      end while data.length == @src.batchSize
+      end while data.length == @src.personsBatchSize
 
       puts 'Done.' 
       puts "Successfully exported #{count} contacts"
