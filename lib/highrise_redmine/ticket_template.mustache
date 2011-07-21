@@ -1,15 +1,21 @@
-{{#phone}}
-телефон: {{{.}}}
-{{/phone}}
-{{#skype}}
-skype: {{{.}}}
-{{/skype}}
-{{#icq}}
-icq: {{{.}}}
-{{/icq}}
+{{#phones}}
+телефон: {{{number}}}{{#location}} ({{{.}}}){{/location}}
+{{/phones}}
+{{#emails}}
+email: {{{address}}}{{#location}} ({{{.}}}){{/location}}
+{{/emails}}
+{{#messengers}}
+{{{type}}}: {{{address}}}{{#location}} ({{{.}}}){{/location}}
+{{/messengers}}
+{{#titleCompanyTags}}
 
-{{#title}}{{{.}}}{{#company}}; {{{.}}}{{/company}}{{/title}}
-{{#tagsNotEmpty}}Теги: {{#tags}}{{^first}}, {{/first}}{{{value}}}{{/tags}}{{/tagsNotEmpty}}
+{{#titleCompany}}
+{{title}}{{#company}}{{#title}}; {{/title}}{{{.}}}{{/company}}
+{{/titleCompany}}
+{{#tagsNotEmpty}}
+Теги: {{#tags}}{{^first}}, {{/first}}{{{value}}}{{/tags}}
+{{/tagsNotEmpty}}
+{{/titleCompanyTags}}
 {{#background}}
 
 {{{.}}}

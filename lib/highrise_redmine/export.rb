@@ -68,10 +68,10 @@ class HighriseRedmine
             template[:title] = person[:title]
             template[:company] = person[:company]
             template[:tags] = (person[:tags] || []).map { |t, i| {:first=> (i==0), :value=>t} }
+            template[:emails] = person[:emails]
+            template[:phones] = person[:phones]
+            template[:messengers] = person[:messengers]
             template[:background] = person[:background]
-
-            puts("title: #{person[:title]}")
-            puts("background: #{person[:background]}")
 
             body = template.render
 

@@ -7,9 +7,11 @@ describe HighriseRedmine::TicketTemplate do
     t = HighriseRedmine::TicketTemplate.new
     t[:firstName] = "John"
     t[:lastName] = "Doe"
-    t[:phone] = "223-322-223"
-    t[:skype] = "john.doe"
-    t[:icq] = "424242"
+    t[:emails] = [{:address=>"john.doe@gmail.com", :location=>"Home"}]
+    t[:phones] = [{:number=>"223-322-223", :location=>"Work"}]
+    t[:messengers] = 
+      [{:type=>"Skype", :address=>"john.doe", :location=>"Work"},
+       {:type=>"ICQ", :address=>"424242", :location=>"Work"}]
     t[:title] = "Software Engineer"
     t[:company] = "Acme Inc."
     t[:tags] = [{:first=>true, :value=>"nerd"},
@@ -19,9 +21,10 @@ describe HighriseRedmine::TicketTemplate do
     t[:background] = "Worked in DARPA."
     t.render.should == 
       <<-eos
-телефон: 223-322-223
-skype: john.doe
-icq: 424242
+телефон: 223-322-223 (Work)
+email: john.doe@gmail.com (Home)
+Skype: john.doe (Work)
+ICQ: 424242 (Work)
 
 Software Engineer; Acme Inc.
 Теги: nerd, funny, smart
@@ -30,12 +33,12 @@ Worked in DARPA.
       eos
   end
 
-  it "don't print empty lines when some contacts are missing" do
+  it "doesn't print empty lines when some contacts are missing" do
     t = HighriseRedmine::TicketTemplate.new
     t[:firstName] = "John"
     t[:lastName] = "Doe"
-    t[:phone] = "223-322-223"
-    t[:icq] = "424242"
+    t[:messengers] = 
+      [{:type=>"ICQ", :address=>"424242"}]
     t[:title] = "Software Engineer"
     t[:company] = "Acme Inc."
     t[:tags] = [{:first=>true, :value=>"nerd"},
@@ -45,13 +48,40 @@ Worked in DARPA.
     t[:background] = "Worked in DARPA."
     t.render.should == 
       <<-eos
-телефон: 223-322-223
-icq: 424242
+ICQ: 424242
 
 Software Engineer; Acme Inc.
 Теги: nerd, funny, smart
 
 Worked in DARPA.
+      eos
+
+  end
+
+  it "doesn't print separating blank lines when company title and tags are all missing" do
+    t = HighriseRedmine::TicketTemplate.new
+    t[:firstName] = "John"
+    t[:lastName] = "Doe"
+    t[:messengers] = 
+      [{:type=>"ICQ", :address=>"424242"}]
+    t[:background] = "Worked in DARPA."
+    t.render.should == 
+      <<-eos
+ICQ: 424242
+
+Worked in DARPA.
+      eos
+  end
+
+  it "doesn't print separating blank lines when background is missing" do
+    t = HighriseRedmine::TicketTemplate.new
+    t[:firstName] = "John"
+    t[:lastName] = "Doe"
+    t[:messengers] = 
+      [{:type=>"ICQ", :address=>"424242"}]
+    t.render.should == 
+      <<-eos
+ICQ: 424242
       eos
 
   end

@@ -10,6 +10,14 @@ class HighriseRedmine
       return !( self[:tags] || [] ).empty?
     end
 
+    def titleCompanyTags
+      titleCompany || tagsNotEmpty
+    end
+
+    def titleCompany
+      (self[:title]!=nil) || (self[:company]!=nil)
+    end
+
   end
 
 end
