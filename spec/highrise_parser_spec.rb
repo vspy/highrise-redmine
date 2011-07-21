@@ -89,5 +89,22 @@ describe HighriseRedmine::HighriseParser do
     }
   end
 
+  it "reads tasks sample data correctly" do 
+    dir = File.dirname(__FILE__) 
+    file = File.open(dir+"/tasks.xml")
+    content = file.read
+    result = HighriseRedmine::HighriseParser.parseTasks(content)
+
+    result.length.should == 2
+    result[0].should == {
+      :body=>'A timed task for the future',
+      :due=>DateTime.civil(2007,03,10,15,11,52)
+    }
+    result[1].should == {
+      :body=>'Another task',
+      :due=>nil
+    }
+  end
+
 end
 

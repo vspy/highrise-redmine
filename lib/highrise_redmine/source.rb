@@ -3,7 +3,7 @@ require 'uri'
 class HighriseRedmine
 
   class Source ;
-    attr_accessor :companiesBatchSize, :personsBatchSize, :notesBatchSize
+    attr_accessor :companiesBatchSize, :personsBatchSize, :notesBatchSize, :tasksBatchSize
 
     def initialize(config, http) 
       @baseUrl = config.srcUrl
@@ -12,6 +12,7 @@ class HighriseRedmine
       @companiesBatchSize = 500
       @personsBatchSize = 500
       @notesBatchSize = 25
+      @tasksBatchSize = 25
     end
 
     def getCompanies(offset)
@@ -27,6 +28,11 @@ class HighriseRedmine
     def getNotes(id, offset)
       body = @http.get( URI.join(@baseUrl, "people/#{id}/notes.xml?n=#{offset}"), @authToken, "X" )
       HighriseRedmine::HighriseParser.parseNotes(body)
+    end
+
+    def getTasks(id, offset)
+      body = @http.get( URI.join(@baseUrl, "people/#{id}/tasks.xml?n=#{offset}"), @authToken, "X" )
+      HighriseRedmine::HighriseParser.parseTasks(body)
     end
 
   end

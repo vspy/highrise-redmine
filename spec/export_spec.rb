@@ -88,8 +88,27 @@ describe HighriseRedmine::Export do
     ])
     src.stub!(:companiesBatchSize).and_return(500)
     src.stub!(:personsBatchSize).and_return(3)
-    src.stub!(:notesBatchSize).and_return(25)
+    src.stub!(:notesBatchSize).and_return(3)
+    src.stub!(:tasksBatchSize).and_return(3)
     src.stub!(:getCompanies).and_return([])
+    src.stub!(:getNotes)
+    src.should_receive(:getNotes).with('id4', 0).and_return([])
+    src.should_receive(:getNotes).with('id5', 0).and_return([
+      {:body=>'note1', :attachments=>[
+            {:url=>'http://example.org/1',:name=>'The Hitchhiker\'s Guide to the Galaxy.pdf'}
+          ]},
+      {:body=>'note2', :attachments=>[]},
+      {:body=>'note3', :attachments=>[]},
+    ])
+    src.should_receive(:getNotes).with('id5',3).and_return([
+      {:body=>'note4', :attachments=>[]},
+      {:body=>'note5', :attachments=>[]},
+    ])
+
+    ## TODO: check the tasks
+    src.should_receive(:getTasks).with('id4', 0).and_return([])
+    src.should_receive(:getTasks).with('id5', 0).and_return([])
+
     storage.should_not_receive(:findCompany).with("foo")
     storage.should_not_receive(:findCompany).with("bar")
     storage.should_receive(:findCompany).once.with("acme").and_return("ACME Inc.")
@@ -111,6 +130,8 @@ describe HighriseRedmine::Export do
     storage.should_receive(:markAsProcessed).once.with("id5")
 
     ## TODO: check if saved
+    ## TODO: check if attachment is saved & posted
+    ## TODO: check if issue updated with note body
 
     config = mock("config")
     config.stub!(:projectId).and_return(1)

@@ -8,7 +8,7 @@ class HighriseRedmine
       companies = []
 
       doc = XmlSimple.xml_in(body)
-      doc['company'].each do |company|
+      (doc['company']||[]).each do |company|
         companies << {
           :id =>  company['id'][0]['content'],
           :name => company['name'][0],
@@ -23,7 +23,7 @@ class HighriseRedmine
 
       doc = XmlSimple.xml_in(body)
 
-      doc['note'].each do |note|
+      (doc['note']||[]).each do |note|
         notes<<{
           :body=>note['body'][0],
           :attachments=>(
@@ -38,12 +38,27 @@ class HighriseRedmine
       notes
     end
 
+    def self.parseTasks(body)
+      tasks = []
+
+      doc = XmlSimple.xml_in(body)
+
+      (doc['task']||[]).each do |task|
+        tasks<<{
+          :body=>task['body'][0],
+          :due=>((task['due-at'] || []).map {|due| DateTime.parse(due['content'])})[0]
+        } 
+      end
+
+      tasks
+    end
+
     def self.parsePersons(body) 
       persons = []
 
       doc = XmlSimple.xml_in(body)
 
-      doc['person'].each do |person|
+      (doc['person']||[]).each do |person|
 
         tags = ((person['tags'] || []).map do |tags| (tags['tag']||[]).map do |tag|
           tag['name'][0]

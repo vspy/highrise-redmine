@@ -86,10 +86,34 @@ class HighriseRedmine
             ## TODO: assigned to id
             })
             puts "created: #{redmineId}"
-            #TODO: really save it, update it, etc
-            #
+            ## TODO: parse id?!
+            ## TODO: save redmine id
             #@storage.markTargetId(id, redmineId)
 
+            ## notes processing
+            notesOffset = 0
+            begin
+              notesData = @src.getNotes(id, notesOffset)
+
+              notesData.each{ |note|
+                ## TODO: really update redmine issue
+              } 
+
+              notesOffset += notesData.length
+            end while notesData.length == @src.notesBatchSize
+  
+            ## tasks processing
+            tasksOffset = 0
+            begin
+              tasksData = @src.getTasks(id, tasksOffset)
+
+              tasksData.each{ |task|
+                ## TODO: really update redmine issue
+              } 
+
+              tasksOffset += notesData.length
+            end while tasksData.length == @src.tasksBatchSize
+  
             @storage.markAsProcessed(id)
             puts "+ #{person[:lastName]} #{person[:firstName]}"
             count+=1

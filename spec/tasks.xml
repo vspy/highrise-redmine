@@ -1,0 +1,32 @@
+<tasks>
+
+<task>
+  <body>A timed task for the future</body>
+  <frame>specific</frame>
+  <due-at type="datetime">2007-03-10T15:11:52Z</due-at>
+  <category-id>1</category-id>
+
+  <!-- optional -->
+  <subject-type>#{Party|Company|Kase|Deal}</subject-type>
+  <subject-id>#{associated_subject.id}</subject-id>
+  <category-id type="integer">#{task_category.id}</category-id>
+  <recording-id type="integer">#{associated_recording.id}</recording-id>
+  <owner-id type="integer">#{owner_user.id}</owner-id>
+  <public type="boolean">#{true|false}</public>
+  <notify type="boolean">#{true|false}</notify>
+</task>
+
+<task>
+  <body>Another task</body>
+  <frame>specific</frame>
+  <category-id>1</category-id>
+  <subject-type>#{Party|Company|Kase|Deal}</subject-type>
+  <subject-id>#{associated_subject.id}</subject-id>
+  <category-id type="integer">#{task_category.id}</category-id>
+  <recording-id type="integer">#{associated_recording.id}</recording-id>
+  <owner-id type="integer">#{owner_user.id}</owner-id>
+  <public type="boolean">#{true|false}</public>
+  <notify type="boolean">#{true|false}</notify>
+</task>
+
+</tasks>
