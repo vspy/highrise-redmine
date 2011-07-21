@@ -61,6 +61,7 @@ class HighriseRedmine
         
         persons << {
           :id => person['id'][0]['content'],
+          :created => DateTime.parse(person['created-at'][0]['content']),
           :firstName => person['first-name'][0],
           :lastName => person['last-name'][0],
           :title => normalize(person['title'][0]),

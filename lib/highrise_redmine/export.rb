@@ -72,6 +72,7 @@ class HighriseRedmine
             template[:phones] = person[:phones]
             template[:messengers] = person[:messengers]
             template[:background] = person[:background]
+            template[:created] = person[:created].strftime("%a %b %d %H:%M:%S %z %Y")
 
             body = template.render
 
@@ -81,7 +82,7 @@ class HighriseRedmine
               :project_id => @projectId,
               :priority_id => @priorityId,
               :tracker_id => @trackerId,
-              :status_id => @statusId
+              :status_id => @statusId,
             ## TODO: assigned to id
             })
             puts "created: #{redmineId}"

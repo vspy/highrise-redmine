@@ -74,13 +74,13 @@ describe HighriseRedmine::Export do
 
     src.stub!(:getPersons)
     src.should_receive(:getPersons).once.with(0).and_return([
-      {:id=>"id1",:firstName=>"John",:lastName=>"Doe",:companyId=>"foo",:tags=>["foo","bar"]},
-      {:id=>"id2",:firstName=>"Jane",:lastName=>"Doe",:companyId=>"bar",:tags=>["partner"]},
-      {:id=>"id3",:firstName=>"Alice",:lastName=>"A.",:companyId=>"foo"}
+      {:id=>"id1",:firstName=>"John",:lastName=>"Doe",:companyId=>"foo",:tags=>["foo","bar"],:created=>DateTime.now},
+      {:id=>"id2",:firstName=>"Jane",:lastName=>"Doe",:companyId=>"bar",:tags=>["partner"],:created=>DateTime.now},
+      {:id=>"id3",:firstName=>"Alice",:lastName=>"A.",:companyId=>"foo",:created=>DateTime.now}
     ])
     src.should_receive(:getPersons).once.with(3).and_return([
-      {:id=>"id4",:firstName=>"Bob",:lastName=>"B.",:companyId=>"acme",:tags=>["foo","bar"]},
-      {:id=>"id5",:firstName=>"Carl",:lastName=>"C."}
+      {:id=>"id4",:firstName=>"Bob",:lastName=>"B.",:companyId=>"acme",:tags=>["foo","bar"],:created=>DateTime.now},
+      {:id=>"id5",:firstName=>"Carl",:lastName=>"C.",:created=>DateTime.now}
     ])
     src.stub!(:batchSize).and_return(3)
     src.stub!(:getCompanies).and_return([])

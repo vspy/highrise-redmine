@@ -22,6 +22,8 @@ describe HighriseRedmine::HighriseParser do
     result[1][:tags].should == []
     result[0][:background].should == "A popular guy for random data"
     result[1][:background].should == "A popular girl for random data"
+
+    result[0][:created].should == DateTime.civil(2007,02,27,3,11,52)
   end
 
   it "reads persons sample data, retreived from real highrise instance correctly" do
