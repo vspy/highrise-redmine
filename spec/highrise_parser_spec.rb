@@ -37,12 +37,21 @@ describe HighriseRedmine::HighriseParser do
     result[1][:firstName].should == "Firstname2"
     result[0][:lastName].should == "Lastname1"
     result[1][:lastName].should == "Lastname2"
-    result[0][:title].should == ""
+    result[0][:title].should == nil
     result[1][:title].should == "Tech.Writing dept. lead"
     result[0][:tags].should == []
     result[1][:tags].should == []
-    result[0][:background].should == ""
+    result[0][:background].should == nil
     result[1][:background].should == "hey! that is the background!!!"
+    result[0][:messengers].should == [{:type=>'Skype', :address=>'skypeid1', :location=>"Work"},
+                                      {:type=>'Skype', :address=>'skypeid1a', :location=>"Work"}]
+    result[1][:messengers].should == [{:type=>'Skype', :address=>'skypeid2', :location=>"Work"}]
+
+    result[0][:phones].should == []
+    result[1][:phones].should == [{:number=>'+79130000000', :location=>"Mobile"}]
+    result[0][:emails].should == []
+    result[1][:emails].should == [{:address=>'somebody@example.org', :location=>"Work"}]
+
   end
 
   it "reads companies sample data correctly" do
