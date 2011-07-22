@@ -1,5 +1,7 @@
 require 'highrise_redmine/highrise_parser'
 require 'highrise_redmine/ticket_template'
+require 'highrise_redmine/note_template'
+require 'highrise_redmine/task_template'
 
 class HighriseRedmine
 
@@ -97,6 +99,12 @@ class HighriseRedmine
 
               notesData.each{ |note|
                 ## TODO: really update redmine issue
+                noteTemplate = NoteTemplate.new
+                noteTemplate[:created] = note[:created]
+                noteTemplate[:body] = note[:body]
+
+                ## TODO: update redmine issue
+                puts "#{noteTemplate.render}"
               } 
 
               notesOffset += notesData.length
