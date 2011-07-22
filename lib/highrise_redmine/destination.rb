@@ -1,4 +1,5 @@
 require 'highrise_redmine/redmine_template'
+require 'xmlsimple'
 
 class HighriseRedmine
 
@@ -17,7 +18,16 @@ class HighriseRedmine
     def createIssue(content)
       template = RedmineTemplate.new
       template[:content] = content
-      @http.post( URI.join(@baseUrl, "issues.xml"), template.render, @authToken, "X" )
+      response = @http.post( URI.join(@baseUrl, "issues.xml"), template.render, @authToken, "X" )
+      doc = XmlSimple.xml_in(response)
+      doc['id'][0]
+    end
+
+    def updateIssue(id, content)
+      template = RedmineTemplate.new
+      template[:content] = content
+      puts("putting: #{template.render}")
+      @http.put( URI.join(@baseUrl, "issues/#{id}.xml"), template.render, @authToken, "X" )
     end
 
   end

@@ -87,10 +87,7 @@ class HighriseRedmine
               :status_id => @statusId,
             ## TODO: assigned to id
             })
-            puts "created: #{redmineId}"
-            ## TODO: parse id?!
-            ## TODO: save redmine id
-            #@storage.markTargetId(id, redmineId)
+            @storage.markTargetId(id, redmineId)
 
             ## notes processing
             notesOffset = 0
@@ -98,13 +95,19 @@ class HighriseRedmine
               notesData = @src.getNotes(id, notesOffset)
 
               notesData.each{ |note|
-                ## TODO: really update redmine issue
                 noteTemplate = NoteTemplate.new
                 noteTemplate[:created] = note[:created]
                 noteTemplate[:body] = note[:body]
 
-                ## TODO: update redmine issue
-                puts "#{noteTemplate.render}"
+                @dst.updateIssue(redmineId, {
+                  :subject => "#{person[:lastName]} #{person[:firstName]}",
+                  :body => body,
+                  :project_id => @projectId,
+                  :priority_id => @priorityId,
+                  :tracker_id => @trackerId,
+                  :status_id => @statusId,
+                  :notes => noteTemplate.render
+                })
               } 
 
               notesOffset += notesData.length

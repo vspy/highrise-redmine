@@ -25,6 +25,7 @@ class HighriseRedmine
 
       (doc['note']||[]).each do |note|
         notes<<{
+          :created => DateTime.parse(note['created-at'][0]['content']),
           :body=>note['body'][0],
           :attachments=>(
             (note['attachments'] || []).map do |attachments|

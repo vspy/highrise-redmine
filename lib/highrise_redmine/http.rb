@@ -24,6 +24,14 @@ class HighriseRedmine
       getResponse(url, request)
     end
 
+    def put(url, body, username = nil, password = nil)
+      request = Net::HTTP::Put.new(path(url))
+      request.body = body
+      request["Content-Type"] = "application/xml"
+      setPassword(request, username, password) 
+      getResponse(url, request)
+    end
+
     def setPassword(request, u, p) 
       if (u && p)
         request.basic_auth u,p
