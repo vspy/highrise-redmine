@@ -24,6 +24,7 @@ describe HighriseRedmine::Export do
     storage.should_receive(:onRecoverFinished)
 
     config = mock("config")
+    config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -61,6 +62,7 @@ describe HighriseRedmine::Export do
     storage.should_receive(:addCompany).with("id5","name5")
 
     config = mock("config")
+    config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -161,6 +163,7 @@ describe HighriseRedmine::Export do
     ## TODO: check if issue updated with note body
 
     config = mock("config")
+    config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -177,6 +180,7 @@ describe HighriseRedmine::Export do
     src.stub!(:notesBatchSize).and_return(3)
     src.stub!(:tasksBatchSize).and_return(3)
     config = mock("config")
+    config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)

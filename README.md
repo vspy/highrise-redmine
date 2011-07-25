@@ -12,6 +12,7 @@ dst:
   tracker_id: 1
   priority_id: 4
   status_id: 1
+  attachments_url: http://example.org/files/
   mapping:
     alice: 2 # bob
     clara: 3 # dave

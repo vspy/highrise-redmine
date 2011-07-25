@@ -13,6 +13,7 @@ class HighriseRedmine
       @mapper = mapper
       @dst = dst
 
+      @attachmentsUrl = config.attachmentsUrl
       @projectId = config.projectId
       @trackerId = config.trackerId
       @priorityId = config.priorityId

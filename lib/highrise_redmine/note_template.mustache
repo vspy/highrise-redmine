@@ -4,4 +4,11 @@ Date: {{{.}}}
 
 {{/created}}
 {{{body}}}
+{{#attachmentsNotEmpty}}
+
+Вложения:
+{{#attachments}}
+{{{.}}}
+{{/attachments}}
+{{/attachmentsNotEmpty}}
 {{/content}}
