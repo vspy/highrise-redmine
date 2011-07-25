@@ -99,10 +99,12 @@ describe HighriseRedmine::HighriseParser do
 
     result.length.should == 2
     result[0].should == {
+      :created=>DateTime.civil(2011,07,18,8,43,50),
       :body=>'A timed task for the future',
       :due=>DateTime.civil(2007,03,10,15,11,52)
     }
     result[1].should == {
+      :created=>DateTime.civil(2011,06,18,8,43,50),
       :body=>'Another task',
       :due=>nil
     }

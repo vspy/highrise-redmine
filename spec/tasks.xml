@@ -5,6 +5,7 @@
   <frame>specific</frame>
   <due-at type="datetime">2007-03-10T15:11:52Z</due-at>
   <category-id>1</category-id>
+  <created-at type="datetime">2011-07-18T08:43:50Z</created-at>
 
   <!-- optional -->
   <subject-type>#{Party|Company|Kase|Deal}</subject-type>
@@ -20,6 +21,8 @@
   <body>Another task</body>
   <frame>specific</frame>
   <category-id>1</category-id>
+  <created-at type="datetime">2011-06-18T08:43:50Z</created-at>
+
   <subject-type>#{Party|Company|Kase|Deal}</subject-type>
   <subject-id>#{associated_subject.id}</subject-id>
   <category-id type="integer">#{task_category.id}</category-id>

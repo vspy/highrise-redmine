@@ -46,6 +46,7 @@ class HighriseRedmine
 
       (doc['task']||[]).each do |task|
         tasks<<{
+          :created => DateTime.parse(task['created-at'][0]['content']),
           :body=>task['body'][0],
           :due=>((task['due-at'] || []).map {|due| DateTime.parse(due['content'])})[0]
         } 
