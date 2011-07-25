@@ -18,6 +18,20 @@ class HighriseRedmine
       return companies
     end
 
+    def self.parseUsers(body)
+      users = []
+
+      doc = XmlSimple.xml_in(body)
+      (doc['user']||[]).each do |user|
+        users << {
+          :id =>  user['id'][0]['content'],
+          :email => user['email-address'][0],
+        }
+      end
+
+      users
+    end
+
     def self.parseNotes(body)
       notes = []
 

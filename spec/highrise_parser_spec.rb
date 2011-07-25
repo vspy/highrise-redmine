@@ -110,5 +110,22 @@ describe HighriseRedmine::HighriseParser do
     }
   end
 
+  it "reads users sample data properly" do
+    dir = File.dirname(__FILE__) 
+    file = File.open(dir+"/users.xml")
+    content = file.read
+    result = HighriseRedmine::HighriseParser.parseUsers(content)
+
+    result.length.should == 2
+    result[0].should == {
+      :id=>"1",
+      :email=>"john.doe@example.com"
+    }
+    result[1].should == {
+      :id=>"2",
+      :email=>"jane.doe@example.com"
+    }
+  end
+
 end
 

@@ -81,7 +81,7 @@ class HighriseRedmine
               :priority_id => @priorityId,
               :tracker_id => @trackerId,
               :status_id => @statusId,
-            ## TODO: assigned to id
+#              :assigned_to_id => @mapper.map(),
             }
 
             redmineId = @dst.createIssue(issueHash)
