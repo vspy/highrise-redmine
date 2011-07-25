@@ -77,6 +77,7 @@ describe HighriseRedmine::HighriseParser do
 
     result.length.should == 2
     result[0].should == {
+      :created=>DateTime.civil(2006,05,16,17,26,00),
       :body=>'Hello world!',
       :attachments=>[
         {:url=>'https://example.highrisehq.com/files/1', :name=>'picture.png'},
@@ -84,6 +85,7 @@ describe HighriseRedmine::HighriseParser do
       ]
     }
     result[1].should == {
+      :created=>DateTime.civil(2006,05,16,17,26,00),
       :body=>'Love, peace and hair grease!',
       :attachments=>[]
     }

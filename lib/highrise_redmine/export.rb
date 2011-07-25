@@ -77,8 +77,7 @@ class HighriseRedmine
             template[:created] = person[:created].strftime("%a %b %d %H:%M:%S %z %Y")
 
             body = template.render
-
-            redmineId = @dst.createIssue({
+            issueHash = {
               :subject => "#{person[:lastName]} #{person[:firstName]}",
               :body => body,
               :project_id => @projectId,
@@ -86,7 +85,9 @@ class HighriseRedmine
               :tracker_id => @trackerId,
               :status_id => @statusId,
             ## TODO: assigned to id
-            })
+            }
+
+            redmineId = @dst.createIssue(issueHash)
             @storage.markTargetId(id, redmineId)
 
             ## notes processing
@@ -99,15 +100,9 @@ class HighriseRedmine
                 noteTemplate[:created] = note[:created]
                 noteTemplate[:body] = note[:body]
 
-                @dst.updateIssue(redmineId, {
-                  :subject => "#{person[:lastName]} #{person[:firstName]}",
-                  :body => body,
-                  :project_id => @projectId,
-                  :priority_id => @priorityId,
-                  :tracker_id => @trackerId,
-                  :status_id => @statusId,
-                  :notes => noteTemplate.render
-                })
+                noteHash = issueHash.clone
+                noteHash[:notes] = noteTemplate.render
+                @dst.updateIssue(redmineId, noteHash)
               } 
 
               notesOffset += notesData.length
@@ -119,7 +114,15 @@ class HighriseRedmine
               tasksData = @src.getTasks(id, tasksOffset)
 
               tasksData.each{ |task|
-                ## TODO: really update redmine issue
+                taskTemplate = TaskTemplate.new
+                taskTemplate[:created] = task[:created] 
+                taskTemplate[:body] = task[:body] 
+                taskTemplate[:due] = task[:due] 
+                taskTemplate[:assignee] = task[:assignee] 
+
+                taskHash = issueHash.clone
+                taskHash[:notes] = taskTemplate.render
+                @dst.updateIssue(redmineId, taskHash)
               } 
 
               tasksOffset += notesData.length

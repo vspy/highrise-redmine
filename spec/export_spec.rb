@@ -74,7 +74,6 @@ describe HighriseRedmine::Export do
     src = mock("src")
     storage = mock("storage")
     dst = mock("dst")
-    dst.stub!(:createIssue)
 
     src.stub!(:getPersons)
     src.should_receive(:getPersons).once.with(0).and_return([
@@ -125,10 +124,18 @@ describe HighriseRedmine::Export do
     storage.should_receive(:markAsStarted).once.with("id4")
     storage.should_receive(:markAsStarted).once.with("id5")
 
+    storage.stub!(:markTargetId)
+    storage.should_receive(:markTargetId).once.with("id4","redmine0")
+    storage.should_receive(:markTargetId).once.with("id5","redmine1")
+
     storage.stub!(:markAsProcessed)
     storage.should_receive(:markAsProcessed).once.with("id4")
     storage.should_receive(:markAsProcessed).once.with("id5")
 
+    dst.stub!(:createIssue)
+    redmineid = 0;
+    dst.should_receive(:createIssue).twice.with(instance_of(Hash)).and_return{ |a| r = "redmine#{redmineid}"; redmineid+=1; r }
+    dst.stub!(:updateIssue)
     ## TODO: check if saved
     ## TODO: check if attachment is saved & posted
     ## TODO: check if issue updated with note body
