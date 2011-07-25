@@ -17,6 +17,11 @@
   <description>
 {{body}}
   </description>
+  <custom_field_values>
+{{#custom_fields}}
+    <{{id}}>{{value}}</{{id}}>
+{{/custom_fields}}
+  </custom_field_values>
 {{#notes}}
   <notes>{{.}}</notes>
 {{/notes}}

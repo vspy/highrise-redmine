@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'highrise_redmine/highrise_parser'
 require 'highrise_redmine/ticket_template'
 require 'highrise_redmine/note_template'
@@ -94,7 +95,8 @@ class HighriseRedmine
               :priority_id => @priorityId,
               :tracker_id => @trackerId,
               :status_id => @statusId,
-              :assigned_to_id => person[:assigned_to_id]
+              :assigned_to_id => person[:assigned_to_id],
+              :custom_fields => [ {:id =>1, :name=>"откуда", :value=>"srcurl"}, {:id=>2, :name=>"next action", :value=>"action"} ],
             }
 
             redmineId = @dst.createIssue(issueHash)
