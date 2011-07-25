@@ -30,6 +30,8 @@ describe HighriseRedmine::Export do
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
     config.stub!(:statusId)
+    config.stub!(:customFields)
+    config.stub!(:urlFieldId)
 
     export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run
@@ -61,6 +63,8 @@ describe HighriseRedmine::Export do
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
     config.stub!(:statusId)
+    config.stub!(:customFields)
+    config.stub!(:urlFieldId)
 
     export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run  
@@ -100,6 +104,8 @@ describe HighriseRedmine::Export do
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
     config.stub!(:statusId)
+    config.stub!(:customFields)
+    config.stub!(:urlFieldId)
 
     export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run
@@ -194,7 +200,6 @@ describe HighriseRedmine::Export do
     dst.stub!(:updateIssue)
     dst.should_receive(:updateIssue).with("redmine0", anything()).exactly(2+7).times
     dst.should_receive(:updateIssue).with("redmine1", anything()).exactly(5+2).times
-    ## TODO: check if issue updated with note body
 
     config = mock("config")
     config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
@@ -202,6 +207,8 @@ describe HighriseRedmine::Export do
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
     config.stub!(:statusId)
+    config.stub!(:customFields)
+    config.stub!(:urlFieldId)
  
     export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run
@@ -219,6 +226,8 @@ describe HighriseRedmine::Export do
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
     config.stub!(:statusId)
+    config.stub!(:customFields)
+    config.stub!(:urlFieldId)
 
     data = [
       {:type=>:task, :created=>DateTime.civil(2011,02,01,00,00,00)},

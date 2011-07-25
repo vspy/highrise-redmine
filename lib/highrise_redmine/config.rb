@@ -6,7 +6,7 @@ class HighriseRedmine
     attr_accessor :srcUrl, :srcAuthToken, :dstUrl,
                   :dstAuthToken, :projectId, :statusId,
                   :priorityId, :trackerId, :mapping, :defaultMapping,
-                  :attachmentsUrl
+                  :attachmentsUrl, :customFields, :urlFieldId
  
     def initialize(body)
       yaml = YAML.load( body )
@@ -26,6 +26,8 @@ class HighriseRedmine
 
       @mapping = dst['mapping']
       @defaultMapping = dst['default_mapping']
+      @customFields = (dst['custom_fields'] || {})
+      @urlFieldId = dst['url_field']
     end
   end
 

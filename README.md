@@ -13,6 +13,9 @@ dst:
   priority_id: 4
   status_id: 1
   attachments_url: http://example.org/files/
+  url_field: 1
+  custom_fields:
+    2: check once again
   mapping:
     alice@example.org: 2 # bob
     clara@example.org: 3 # dave

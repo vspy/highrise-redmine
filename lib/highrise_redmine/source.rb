@@ -15,6 +15,10 @@ class HighriseRedmine
       @tasksBatchSize = 25
     end
 
+    def humanUrlFor(id)
+      URI.join(@baseUrl, "people/#{id}").to_s
+    end
+
     def getCompanies(offset)
       body = @http.get( URI.join(@baseUrl, "companies.xml?n=#{offset}"), @authToken, "X" )
       HighriseRedmine::HighriseParser.parseCompanies(body)

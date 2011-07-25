@@ -16,6 +16,14 @@ describe HighriseRedmine::Source do
     src = HighriseRedmine::Source.new(config, http)
   end
 
+  it "return human urls" do 
+    config = mock("config")
+    config.stub!(:srcUrl).and_return('http://example.org/source/')
+    config.stub!(:srcAuthToken).and_return('token')
+    src = HighriseRedmine::Source.new(config, nil)
+    src.humanUrlFor(42).should == 'http://example.org/source/people/42'
+  end
+
   it "gets and parses companies" do
     src = prepare('/companies.xml', 'companies.xml?n=42')
     result = src.getCompanies(42)

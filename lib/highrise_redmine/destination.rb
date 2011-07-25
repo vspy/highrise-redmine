@@ -26,7 +26,6 @@ class HighriseRedmine
     def updateIssue(id, content)
       template = RedmineTemplate.new
       template[:content] = content
-      puts("putting: #{template.render}")
       @http.put( URI.join(@baseUrl, "issues/#{id}.xml"), template.render, @authToken, "X" )
     end
 

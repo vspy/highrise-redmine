@@ -19,6 +19,8 @@ class HighriseRedmine
       @trackerId = config.trackerId
       @priorityId = config.priorityId
       @statusId = config.statusId
+      @customFields = (config.customFields || {})
+      @urlFieldId = config.urlFieldId
     end 
 
     def run
@@ -77,6 +79,11 @@ class HighriseRedmine
               person[:assigned_to_id] = @mapper.map( @storage.findUser(authorId) )
             end
 
+            customFields = @customFields.clone
+            if (@urlFieldId) 
+              customFields[@urlFieldId] = @src.humanUrlFor(id)
+            end 
+
             template = TicketTemplate.new
             template[:title] = person[:title]
             template[:company] = person[:company]
@@ -96,7 +103,7 @@ class HighriseRedmine
               :tracker_id => @trackerId,
               :status_id => @statusId,
               :assigned_to_id => person[:assigned_to_id],
-              :custom_fields => [ {:id =>1, :name=>"откуда", :value=>"srcurl"}, {:id=>2, :name=>"next action", :value=>"action"} ],
+              :custom_fields => customFields.map {|k,v| {:id=>k,:value=>v} }
             }
 
             redmineId = @dst.createIssue(issueHash)
