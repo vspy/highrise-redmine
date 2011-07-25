@@ -21,7 +21,7 @@ class HighriseRedmine
       @processedQuery = @db.prepare("select id from processed where highrise_id=:highrise_id and finished=1")
 
       @recoverQuery = @db.prepare("delete from processed where finished=0 and redmine_id is null")
-      @toDeleteQuery = @db.prepare("select redmine_id from processed where redmine_id is not null")
+      @toDeleteQuery = @db.prepare("select redmine_id from processed where redmine_id is not null and finished=0")
       @onRecoverFinishedQuery = @db.prepare("delete from processed where finished=0 and redmine_id is not null")
     end
 

@@ -62,4 +62,17 @@ describe HighriseRedmine::Storage do
     s.recover.should == []
   end
 
+  it "reports only unfinished records" do
+    tempFile = Tempfile.new('storage_test')
+    s = HighriseRedmine::Storage.new(tempFile)
+
+
+    s.markAsStarted("1")
+    s.markAsStarted("2")
+    s.markTargetId("1","redmine_1")
+    s.markTargetId("2","redmine_2")
+    s.markAsProcessed("1")
+    s.recover.should == ["redmine_2"]
+  end
+
 end

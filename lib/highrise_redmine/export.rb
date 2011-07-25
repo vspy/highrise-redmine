@@ -24,10 +24,7 @@ class HighriseRedmine
       toDelete = @storage.recover
       if (toDelete.length > 0) 
         puts '... Removing incomplete issues from redmine'
-
-        toDelete.each { |id|
-          @dst.deleteIssue(id)
-        }
+        toDelete.each { |id| @dst.deleteIssue(id) }
         @storage.onRecoverFinished
       end
 
