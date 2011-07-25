@@ -5,10 +5,12 @@ describe HighriseRedmine::TaskTemplate do
 
   it "formats task properly" do
     t = HighriseRedmine::TaskTemplate.new
-    t[:created] = '2011-01-02 03:04:05'
-    t[:body] = 'Hello, world!'
-    t[:due] = '2012-02-03 04:05:06'
-    t[:assignee] = 'bob'
+    t[:content] = {
+      :created => '2011-01-02 03:04:05',
+      :body => 'Hello, world!',
+      :due => '2012-02-03 04:05:06',
+      :assignee => 'bob'
+    }
     t.render.should == 
 <<-eos
 Date: 2011-01-02 03:04:05
@@ -21,8 +23,10 @@ eos
 
   it "formats incomplete task properly" do
     t = HighriseRedmine::TaskTemplate.new
-    t[:created] = '2011-01-02 03:04:05'
-    t[:body] = 'Hello, world!'
+    t[:content] = {
+      :created => '2011-01-02 03:04:05',
+      :body => 'Hello, world!',
+    }
     t.render.should == 
 <<-eos
 Date: 2011-01-02 03:04:05

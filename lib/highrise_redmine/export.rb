@@ -90,19 +90,16 @@ class HighriseRedmine
             redmineId = @dst.createIssue(issueHash)
             @storage.markTargetId(id, redmineId)
 
-            ## notes processing
+            updates = []
+
+            ## read all notes
             notesOffset = 0
             begin
               notesData = @src.getNotes(id, notesOffset)
 
-              notesData.each{ |note|
-                noteTemplate = NoteTemplate.new
-                noteTemplate[:created] = note[:created]
-                noteTemplate[:body] = note[:body]
-
-                noteHash = issueHash.clone
-                noteHash[:notes] = noteTemplate.render
-                @dst.updateIssue(redmineId, noteHash)
+              notesData.each{ |note| 
+                note[:type] = :note
+                updates << note
               } 
 
               notesOffset += notesData.length
@@ -114,20 +111,22 @@ class HighriseRedmine
               tasksData = @src.getTasks(id, tasksOffset)
 
               tasksData.each{ |task|
-                taskTemplate = TaskTemplate.new
-                taskTemplate[:created] = task[:created] 
-                taskTemplate[:body] = task[:body] 
-                taskTemplate[:due] = task[:due] 
-                taskTemplate[:assignee] = task[:assignee] 
-
-                taskHash = issueHash.clone
-                taskHash[:notes] = taskTemplate.render
-                @dst.updateIssue(redmineId, taskHash)
+                task[:type] = :task
+                updates << task
               } 
 
               tasksOffset += tasksData.length
             end while tasksData.length == @src.tasksBatchSize
-  
+
+            ## TODO: sort
+            updates.each { |u|
+              template = (u[:type]==:note)?NoteTemplate.new : TaskTemplate.new
+              template[:content] = u
+              updateHash = issueHash.clone
+              updateHash[:notes] = template.render
+              @dst.updateIssue(redmineId, updateHash)
+            }
+
             @storage.markAsProcessed(id)
             puts "+ #{person[:lastName]} #{person[:firstName]}"
             count+=1
