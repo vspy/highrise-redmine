@@ -12,6 +12,7 @@ describe HighriseRedmine::Config do
     c.srcAuthToken.should == 'srcsecret'
     c.dstUrl.should == 'http://example.org/destination/'
     c.dstAuthToken.should == 'dstsecret'
+    c.attachmentsUrl.should == 'http://example.org/attachments/'
     c.projectId.should == 45
     c.trackerId.should == 44
     c.statusId.should == 43
