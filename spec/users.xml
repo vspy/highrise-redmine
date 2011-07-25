@@ -1,0 +1,19 @@
+<users>
+
+<user>
+  <id type="integer">1</id>
+  <name>John Doe</name>
+  <email-address>john.doe@example.com</email-address>
+  <created-at type="datetime">2007-04-23T20:25:29Z</created-at>
+  <updated-at type="datetime">2007-04-23T20:25:29Z</updated-at>
+</user>
+
+<user>
+  <id type="integer">2</id>
+  <name>John Doe</name>
+  <email-address>jane.doe@example.com</email-address>
+  <created-at type="datetime">2007-04-23T20:25:29Z</created-at>
+  <updated-at type="datetime">2007-04-23T20:25:29Z</updated-at>
+</user>
+
+</users>
