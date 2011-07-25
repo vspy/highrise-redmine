@@ -19,6 +19,15 @@ class HighriseRedmine
       URI.join(@baseUrl, "people/#{id}").to_s
     end
 
+    def download(uri, filename)
+      ## I really hope that nobody uploaded a movie into highrise
+      ## as it gets the whole response into the memory
+      body = @http.get(URI.parse(uri), @authToken, "X")
+      file = File.new(filename, 'w')
+      file.write(body)
+      file.close
+    end
+
     def getCompanies(offset)
       body = @http.get( URI.join(@baseUrl, "companies.xml?n=#{offset}"), @authToken, "X" )
       HighriseRedmine::HighriseParser.parseCompanies(body)

@@ -8,7 +8,7 @@ class HighriseRedmine
 
 
     def attachmentsNotEmpty
-      !((self[:content] || {})[:attachments] || []).empty?
+      !((self[:content] || {})[:attachmentUrls] || []).empty?
     end
 
   end

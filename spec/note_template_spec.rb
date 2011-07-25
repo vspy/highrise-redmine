@@ -8,7 +8,7 @@ describe HighriseRedmine::NoteTemplate do
     t[:content] = {
       :created => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
-      :attachments => (['пример.pdf', 'sample.pdf'].map { |f| URI.join('http://example.org/files/', URI.escape(f)) })
+      :attachmentUrls => (['пример.pdf', 'sample.pdf'].map { |f| URI.join('http://example.org/files/', URI.escape(f)) })
     }
     t.render.should == 
 <<-eos

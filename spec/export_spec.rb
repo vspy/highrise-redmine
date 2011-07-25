@@ -209,6 +209,9 @@ describe HighriseRedmine::Export do
     config.stub!(:statusId)
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
+
+    src.stub!(:download)
+    src.should_receive(:download).with("http://example.org/1", anything())
  
     export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
     export.run

@@ -14,6 +14,7 @@ class HighriseRedmine
       @mapper = mapper
       @dst = dst
 
+      @attachmentsDir = Dir.pwd + File::Separator + "attachments"
       @attachmentsUrl = config.attachmentsUrl
       @projectId = config.projectId
       @trackerId = config.trackerId
@@ -22,6 +23,33 @@ class HighriseRedmine
       @customFields = (config.customFields || {})
       @urlFieldId = config.urlFieldId
     end 
+
+    def createAttachmentsDir
+      if File.directory?(@attachmentsDir)
+        return
+      end
+      Dir.mkdir(@attachmentsDir)
+    end
+
+    def findUnusedFile(filename)
+      current = filename
+      
+      while (File.exist?(@attachmentsDir+File::Separator+current))
+        extension = File.extname(current)
+        basename = File.basename(current, extension)
+        dirname = File.dirname(current)
+
+        idx = basename.index(/-\d+$/)
+        if idx
+          n = (basename[idx+1, (basename.length-idx-1)]).to_i
+          current = dirname + File::Separator + basename[0,idx] + "-#{n+1}" + extension
+        else
+          current = dirname + File::Separator + basename+"-2" + extension
+        end
+      end
+
+      @attachmentsDir+File::Separator+current
+    end
 
     def run
       toDelete = @storage.recover
@@ -59,6 +87,7 @@ class HighriseRedmine
       puts '... Exporting contacts'
       count = 0
       offset = 0
+      firstAttachment = true
 
       begin 
         data = @src.getPersons(offset)
@@ -110,6 +139,21 @@ class HighriseRedmine
             @storage.markTargetId(id, redmineId)
 
             updates = sortUpdates( loadNotesAndTasks(id) )
+
+            notesWithFiles = updates.find_all { |u| u[:type]==:note && u[:attachments] && !u[:attachments].empty? }
+            if (!notesWithFiles.empty? && firstAttachment)
+              createAttachmentsDir
+            end
+
+            notesWithFiles.each { |note| 
+              result = []
+              note[:attachments].each { |attachment|
+                file = findUnusedFile(attachment[:name])
+                @src.download(attachment[:url], file)
+                result << File.basename(file)
+              }
+              note[:attachmentUrls] = result.map { |f| URI.join(@attachmentsUrl, URI.escape(f)) }
+            }
 
             updates.each { |u|
               template = (u[:type]==:note)?NoteTemplate.new : TaskTemplate.new
