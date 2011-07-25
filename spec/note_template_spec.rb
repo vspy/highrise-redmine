@@ -28,7 +28,6 @@ eos
       :created => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
     }
-    puts("#{t[:content]}")
     t.render.should == 
 <<-eos
 Date: 2011-01-02 03:04:05
