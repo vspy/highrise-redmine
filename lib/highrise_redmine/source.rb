@@ -20,6 +20,11 @@ class HighriseRedmine
       HighriseRedmine::HighriseParser.parseCompanies(body)
     end
 
+    def getUsers
+      body = @http.get( URI.join(@baseUrl, "users.xml"), @authToken, "X" )
+      HighriseRedmine::HighriseParser.parseUsers(body)
+    end
+
     def getPersons(offset)
       body = @http.get( URI.join(@baseUrl, "people.xml?n=#{offset}"), @authToken, "X" )
       HighriseRedmine::HighriseParser.parsePersons(body)

@@ -10,6 +10,7 @@ describe HighriseRedmine::Export do
     storage.stub!(:recover).and_return(["id1","id2","id3"])
     storage.stub!(:onRecoverFinished)
 
+    src.stub!(:getUsers).and_return([])
     src.stub!(:getCompanies).and_return([])
     src.stub!(:getPersons).and_return([])
     src.stub!(:companiesBatchSize).and_return(500)
@@ -34,11 +35,43 @@ describe HighriseRedmine::Export do
     export.run
   end
 
+  it "processes all users" do
+    src = mock("src")
+    storage = mock("storage")
+    dst = mock("dst")
+
+    src.stub!(:getUsers).and_return([
+      {:id=>"1", :email=>"alice@example.org"},
+      {:id=>"2", :email=>"bob@example.org"},
+    ])
+    src.stub!(:getCompanies).and_return([])
+    src.stub!(:companiesBatchSize).and_return(500)
+    src.stub!(:personsBatchSize).and_return(500)
+    src.stub!(:notesBatchSize).and_return(25)
+    src.stub!(:getPersons).and_return([])
+    
+    storage.stub!(:recover).and_return([])
+    storage.stub!(:addUser)
+    storage.should_receive(:addUser).with("1","alice@example.org")
+    storage.should_receive(:addUser).with("2","bob@example.org")
+
+    config = mock("config")
+    config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
+    config.stub!(:projectId).and_return(1)
+    config.stub!(:priorityId).and_return(2)
+    config.stub!(:trackerId)
+    config.stub!(:statusId)
+
+    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
+    export.run  
+  end
+
   it "processes all the companies" do
     src = mock("src")
     storage = mock("storage")
     dst = mock("dst")
 
+    src.stub!(:getUsers).and_return([])
     src.stub!(:getCompanies)
     src.should_receive(:getCompanies).once.with(0).and_return([
       {:id=>"id1",:name=>"name1"},
@@ -77,6 +110,7 @@ describe HighriseRedmine::Export do
     storage = mock("storage")
     dst = mock("dst")
 
+    src.stub!(:getUsers).and_return([])
     src.stub!(:getPersons)
     src.should_receive(:getPersons).once.with(0).and_return([
       {:id=>"id1",:firstName=>"John",:lastName=>"Doe",:companyId=>"foo",:tags=>["foo","bar"],:created=>DateTime.now},

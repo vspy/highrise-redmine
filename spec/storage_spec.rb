@@ -14,6 +14,16 @@ describe HighriseRedmine::Storage do
     s.findCompany("3").should == nil
   end
 
+  it "stores and then fetches users" do
+    tempFile = Tempfile.new('storage_test')
+    s = HighriseRedmine::Storage.new(tempFile)
+    s.addUser("1","alice@example.org")
+    s.addUser("2","bob@example.org")
+    s.findUser("1").should == "alice@example.org"
+    s.findUser("2").should == "bob@example.org"
+    s.findUser("3").should == nil
+  end
+
   it "marks data as processed and finds if it is already processed" do
     tempFile = Tempfile.new('storage_test')
     s = HighriseRedmine::Storage.new(tempFile)

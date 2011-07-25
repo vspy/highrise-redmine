@@ -44,6 +44,15 @@ class HighriseRedmine
         offset += data.length
       end while data.length == @src.companiesBatchSize
 
+      puts '... Updating users list'
+      userData = @src.getUsers()
+      userData.each { |user|
+        id = user[:id]
+        email = user[:email]
+        @storage.addUser(id,email)
+        puts "#{id} -> #{email}"
+      }
+
       puts '... Exporting contacts'
       count = 0
       offset = 0

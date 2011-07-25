@@ -6,6 +6,7 @@ class HighriseRedmine
     def initialize(dbFilename)
       @db = SQLite3::Database.new( dbFilename )
       @db.execute( "create table if not exists companies(id INTEGER PRIMARY KEY ASC, highrise_id text, name text)" )
+      @db.execute( "create table if not exists users(id INTEGER PRIMARY KEY ASC, highrise_id text, email text)" )
       @db.execute( "create unique index if not exists c_hr_id on companies(highrise_id)" )
 
       @db.execute( "create table if not exists processed(id INTEGER PRIMARY KEY ASC, highrise_id text, redmine_id text, finished integer)" )
@@ -13,6 +14,9 @@ class HighriseRedmine
 
       @findCompanyQuery = @db.prepare("select name from companies where highrise_id=:highrise_id")
       @createCompanyQuery = @db.prepare("insert into companies (highrise_id, name) values (:highrise_id, :name)")
+
+      @findUserQuery = @db.prepare("select email from users where highrise_id=:highrise_id")
+      @createUserQuery = @db.prepare("insert into users (highrise_id, email) values (:highrise_id, :email)")
 
       @markStartQuery = @db.prepare("insert into processed (highrise_id, redmine_id, finished) values (:highrise_id, null, 0)")
       @markTargetIdQuery = @db.prepare("update processed set redmine_id=:redmine_id where highrise_id=:highrise_id")
@@ -33,6 +37,17 @@ class HighriseRedmine
 
     def findCompany(id)
       @findCompanyQuery.execute!(:highrise_id => id) { |row| return row[0] }
+      nil
+    end
+
+    def addUser(id,email)
+      findUser(id) || (
+        @createUserQuery.execute(:highrise_id=>id, :email=>email)
+      )
+    end
+
+    def findUser(id)
+      @findUserQuery.execute!(:highrise_id => id) { |row| return row[0] }
       nil
     end
 
