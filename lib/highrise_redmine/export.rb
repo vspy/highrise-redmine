@@ -125,7 +125,7 @@ class HighriseRedmine
                 @dst.updateIssue(redmineId, taskHash)
               } 
 
-              tasksOffset += notesData.length
+              tasksOffset += tasksData.length
             end while tasksData.length == @src.tasksBatchSize
   
             @storage.markAsProcessed(id)

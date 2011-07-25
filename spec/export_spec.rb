@@ -91,22 +91,42 @@ describe HighriseRedmine::Export do
     src.stub!(:tasksBatchSize).and_return(3)
     src.stub!(:getCompanies).and_return([])
     src.stub!(:getNotes)
-    src.should_receive(:getNotes).with('id4', 0).and_return([])
+
+    src.should_receive(:getNotes).with('id4', 0).and_return([
+      {:body=>'id4note1', :attachments=>[]},
+      {:body=>'id4note2', :attachments=>[]},
+    ])
+
     src.should_receive(:getNotes).with('id5', 0).and_return([
-      {:body=>'note1', :attachments=>[
+      {:body=>'id5note1', :attachments=>[
             {:url=>'http://example.org/1',:name=>'The Hitchhiker\'s Guide to the Galaxy.pdf'}
           ]},
-      {:body=>'note2', :attachments=>[]},
-      {:body=>'note3', :attachments=>[]},
+      {:body=>'id5note2', :attachments=>[]},
+      {:body=>'id5note3', :attachments=>[]},
     ])
     src.should_receive(:getNotes).with('id5',3).and_return([
-      {:body=>'note4', :attachments=>[]},
-      {:body=>'note5', :attachments=>[]},
+      {:body=>'id5note4', :attachments=>[]},
+      {:body=>'id5note5', :attachments=>[]},
     ])
 
     ## TODO: check the tasks
-    src.should_receive(:getTasks).with('id4', 0).and_return([])
-    src.should_receive(:getTasks).with('id5', 0).and_return([])
+    src.should_receive(:getTasks).with('id4', 0).and_return([
+      {:body=>'id4task1'},
+      {:body=>'id4task2'},
+      {:body=>'id4task3'},
+    ])
+    src.should_receive(:getTasks).with('id4', 3).and_return([
+      {:body=>'id4task4'},
+      {:body=>'id4task5'},
+      {:body=>'id4task6'},
+    ])
+    src.should_receive(:getTasks).with('id4', 6).and_return([
+      {:body=>'id4task7'},
+    ])
+    src.should_receive(:getTasks).with('id5', 0).and_return([
+      {:body=>'id5task1'},
+      {:body=>'id5task2'},
+    ])
 
     storage.should_not_receive(:findCompany).with("foo")
     storage.should_not_receive(:findCompany).with("bar")
@@ -134,10 +154,10 @@ describe HighriseRedmine::Export do
 
     dst.stub!(:createIssue)
     redmineid = 0;
-    dst.should_receive(:createIssue).twice.with(instance_of(Hash)).and_return{ |a| r = "redmine#{redmineid}"; redmineid+=1; r }
+    dst.should_receive(:createIssue).twice.with(instance_of(Hash)).and_return{ r = "redmine#{redmineid}"; redmineid+=1; r }
     dst.stub!(:updateIssue)
-    ## TODO: check if saved
-    ## TODO: check if attachment is saved & posted
+    dst.should_receive(:updateIssue).with("redmine0", anything()).exactly(2+7).times
+    dst.should_receive(:updateIssue).with("redmine1", anything()).exactly(5+2).times
     ## TODO: check if issue updated with note body
 
     config = mock("config")
