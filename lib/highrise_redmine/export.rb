@@ -20,7 +20,6 @@ class HighriseRedmine
     end 
 
     def run
-
       toDelete = @storage.recover
       if (toDelete.length > 0) 
         puts '... Removing incomplete issues from redmine'
@@ -90,35 +89,8 @@ class HighriseRedmine
             redmineId = @dst.createIssue(issueHash)
             @storage.markTargetId(id, redmineId)
 
-            updates = []
+            updates = sortUpdates( loadNotesAndTasks(id) )
 
-            ## read all notes
-            notesOffset = 0
-            begin
-              notesData = @src.getNotes(id, notesOffset)
-
-              notesData.each{ |note| 
-                note[:type] = :note
-                updates << note
-              } 
-
-              notesOffset += notesData.length
-            end while notesData.length == @src.notesBatchSize
-  
-            ## tasks processing
-            tasksOffset = 0
-            begin
-              tasksData = @src.getTasks(id, tasksOffset)
-
-              tasksData.each{ |task|
-                task[:type] = :task
-                updates << task
-              } 
-
-              tasksOffset += tasksData.length
-            end while tasksData.length == @src.tasksBatchSize
-
-            ## TODO: sort
             updates.each { |u|
               template = (u[:type]==:note)?NoteTemplate.new : TaskTemplate.new
               template[:content] = u
@@ -138,6 +110,42 @@ class HighriseRedmine
 
       puts 'Done.' 
       puts "Successfully exported #{count} contacts"
+    end
+
+    def sortUpdates(updates)
+      updates.sort_by{ |c| "#{c[:created]}" }
+    end
+
+    def loadNotesAndTasks(id)
+      updates = []
+
+      ## read all notes
+      notesOffset = 0
+      begin
+        notesData = @src.getNotes(id, notesOffset)
+
+        notesData.each{ |note| 
+          note[:type] = :note
+          updates << note
+        } 
+
+        notesOffset += notesData.length
+      end while notesData.length == @src.notesBatchSize
+  
+      ## tasks processing
+      tasksOffset = 0
+      begin
+        tasksData = @src.getTasks(id, tasksOffset)
+
+        tasksData.each{ |task|
+          task[:type] = :task
+          updates << task
+        } 
+
+        tasksOffset += tasksData.length
+      end while tasksData.length == @src.tasksBatchSize
+
+      updates
     end
     
   end

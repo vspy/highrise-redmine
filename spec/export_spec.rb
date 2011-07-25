@@ -170,6 +170,32 @@ describe HighriseRedmine::Export do
     export.run
   end
 
+  it "sort updates in a chronological order" do 
+    src = mock("src")
+    src.stub!(:companiesBatchSize).and_return(500)
+    src.stub!(:personsBatchSize).and_return(3)
+    src.stub!(:notesBatchSize).and_return(3)
+    src.stub!(:tasksBatchSize).and_return(3)
+    config = mock("config")
+    config.stub!(:projectId).and_return(1)
+    config.stub!(:priorityId).and_return(2)
+    config.stub!(:trackerId)
+    config.stub!(:statusId)
+
+    data = [
+      {:type=>:task, :created=>DateTime.civil(2011,02,01,00,00,00)},
+      {:type=>:task, :created=>DateTime.civil(2011,03,01,00,00,00)},
+      {:type=>:note, :created=>DateTime.civil(2011,01,01,00,00,00)},
+      {:type=>:note},
+    ]
+    HighriseRedmine::Export.new(config, src,nil,nil,nil).sortUpdates(data).should == [
+      {:type=>:note},
+      {:type=>:note, :created=>DateTime.civil(2011,01,01,00,00,00)},
+      {:type=>:task, :created=>DateTime.civil(2011,02,01,00,00,00)},
+      {:type=>:task, :created=>DateTime.civil(2011,03,01,00,00,00)},
+    ]
+  end
+
 end
 
 
