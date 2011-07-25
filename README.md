@@ -14,7 +14,7 @@ dst:
   status_id: 1
   attachments_url: http://example.org/files/
   mapping:
-    alice: 2 # bob
-    clara: 3 # dave
+    alice@example.org: 2 # bob
+    clara@example.org: 3 # dave
   default_mapping: 1 # admin
 ```

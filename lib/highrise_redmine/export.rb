@@ -63,6 +63,7 @@ class HighriseRedmine
         data.each { |person|
           id = person[:id]
           companyId = person[:companyId]
+          authorId = person[:authorId]
 
           if (@storage.isProcessed(id))
             puts "* #{person[:lastName]} #{person[:firstName]}"
@@ -70,6 +71,9 @@ class HighriseRedmine
             @storage.markAsStarted(id)
             if (companyId) 
               person[:company] = @storage.findCompany(companyId)
+            end
+            if (authorId) 
+              person[:assigned_to_id] = @mapper.map( @storage.findUser(authorId) )
             end
 
             template = TicketTemplate.new
@@ -90,7 +94,7 @@ class HighriseRedmine
               :priority_id => @priorityId,
               :tracker_id => @trackerId,
               :status_id => @statusId,
-#              :assigned_to_id => @mapper.map(),
+              :assigned_to_id => person[:assigned_to_id]
             }
 
             redmineId = @dst.createIssue(issueHash)
