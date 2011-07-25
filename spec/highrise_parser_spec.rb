@@ -53,7 +53,8 @@ describe HighriseRedmine::HighriseParser do
     result[1][:phones].should == [{:number=>'+79130000000', :location=>"Mobile"}]
     result[0][:emails].should == []
     result[1][:emails].should == [{:address=>'somebody@example.org', :location=>"Work"}]
-
+    result[0][:authorId].should == "524631"
+    result[1][:authorId].should == "524631"
   end
 
   it "reads companies sample data correctly" do
