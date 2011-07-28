@@ -10,6 +10,7 @@ dst:
   tracker_id: 44
   project_id: 45
   attachments_url: http://example.org/attachments/
+  attachments_dir: ~/Documents/attachments/
   mapping:
     alice: bob
     clara: dave

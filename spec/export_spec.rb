@@ -26,6 +26,7 @@ describe HighriseRedmine::Export do
 
     config = mock("config")
     config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
+    config.stub!(:attachmentsDir)
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -59,6 +60,7 @@ describe HighriseRedmine::Export do
 
     config = mock("config")
     config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
+    config.stub!(:attachmentsDir)
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -100,6 +102,7 @@ describe HighriseRedmine::Export do
 
     config = mock("config")
     config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
+    config.stub!(:attachmentsDir)
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -203,6 +206,8 @@ describe HighriseRedmine::Export do
 
     config = mock("config")
     config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
+    config.stub!(:attachmentsDir)
+
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)
@@ -225,6 +230,8 @@ describe HighriseRedmine::Export do
     src.stub!(:tasksBatchSize).and_return(3)
     config = mock("config")
     config.stub!(:attachmentsUrl).and_return('http://example.org/files/')
+    config.stub!(:attachmentsDir)
+
     config.stub!(:projectId).and_return(1)
     config.stub!(:priorityId).and_return(2)
     config.stub!(:trackerId)

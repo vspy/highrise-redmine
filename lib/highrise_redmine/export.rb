@@ -14,7 +14,7 @@ class HighriseRedmine
       @mapper = mapper
       @dst = dst
 
-      @attachmentsDir = Dir.pwd + File::Separator + "attachments"
+      @attachmentsDir = config.attachmentsDir ? File.expand_path(config.attachmentsDir) : (Dir.pwd + File::Separator + "attachments")
       @attachmentsUrl = config.attachmentsUrl
       @projectId = config.projectId
       @trackerId = config.trackerId

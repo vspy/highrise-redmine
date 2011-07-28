@@ -13,6 +13,7 @@ describe HighriseRedmine::Config do
     c.dstUrl.should == 'http://example.org/destination/'
     c.dstAuthToken.should == 'dstsecret'
     c.attachmentsUrl.should == 'http://example.org/attachments/'
+    c.attachmentsDir.should == '~/Documents/attachments/'
     c.projectId.should == 45
     c.trackerId.should == 44
     c.statusId.should == 43
