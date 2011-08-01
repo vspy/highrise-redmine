@@ -130,7 +130,7 @@ class HighriseRedmine
     end
 
     def self.normalize(s)
-      (s == [] || s == {})? nil : s
+      (s == [] || s == {} || s == {"nil"=>"true"})? nil : s
     end
 
   end

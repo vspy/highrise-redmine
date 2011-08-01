@@ -26,6 +26,18 @@ describe HighriseRedmine::HighriseParser do
     result[0][:created].should == DateTime.civil(2007,02,27,3,11,52)
   end
 
+  it "reads persons incomplete sample data correctly" do
+    dir = File.dirname(__FILE__) 
+    file = File.open(dir+"/persons-incomplete.xml")
+    content = file.read
+    result = HighriseRedmine::HighriseParser.parsePersons(content)
+
+    result.length.should == 1
+    result[0][:title].should == nil
+    result[0][:background].should == nil
+    result[0][:created].should == DateTime.civil(2007,02,27,3,11,52)
+  end
+
   it "reads persons sample data, retreived from real highrise instance correctly" do
     dir = File.dirname(__FILE__) 
     file = File.open(dir+"/persons-real.xml")
