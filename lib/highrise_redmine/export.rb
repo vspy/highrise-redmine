@@ -7,6 +7,8 @@ require 'highrise_redmine/task_template'
 class HighriseRedmine
 
   class Export
+
+    TIME_FORMAT = "%a %b %d %H:%M:%S %z %Y"
  
     def initialize(config, src, storage, mapper, dst)
       @src = src
@@ -121,7 +123,7 @@ class HighriseRedmine
             template[:phones] = person[:phones]
             template[:messengers] = person[:messengers]
             template[:background] = person[:background]
-            template[:created] = person[:created].strftime("%a %b %d %H:%M:%S %z %Y")
+            template[:created] = person[:created].strftime(TIME_FORMAT)
 
             body = template.render
             issueHash = {
@@ -158,6 +160,10 @@ class HighriseRedmine
             updates.each { |u|
               template = (u[:type]==:note)?NoteTemplate.new : TaskTemplate.new
               template[:content] = u
+
+              created = u[:created]
+              template[:createdAt] = created ? created.strftime(TIME_FORMAT) : nil
+
               updateHash = issueHash.clone
               updateHash[:notes] = template.render
               @dst.updateIssue(redmineId, updateHash)

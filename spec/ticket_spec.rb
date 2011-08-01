@@ -21,10 +21,10 @@ describe HighriseRedmine::TicketTemplate do
     t[:background] = "Worked in DARPA."
     t.render.should == 
       <<-eos
-телефон: 223-322-223 (Work)
-email: john.doe@gmail.com (Home)
-Skype: john.doe (Work)
-ICQ: 424242 (Work)
+телефон: 223-322-223
+email: john.doe@gmail.com
+Skype: john.doe
+ICQ: 424242
 
 Software Engineer; Acme Inc.
 Теги: nerd, funny, smart

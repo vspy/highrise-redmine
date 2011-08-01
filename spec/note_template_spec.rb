@@ -6,7 +6,7 @@ describe HighriseRedmine::NoteTemplate do
   it "formats note properly" do
     t = HighriseRedmine::NoteTemplate.new
     t[:content] = {
-      :created => '2011-01-02 03:04:05',
+      :createdAt => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
       :attachmentUrls => (['пример.pdf', 'sample.pdf'].map { |f| URI.join('http://example.org/files/', URI.escape(f)) })
     }
@@ -25,7 +25,7 @@ eos
   it "formats note without attachments" do
     t = HighriseRedmine::NoteTemplate.new
     t[:content] = {
-      :created => '2011-01-02 03:04:05',
+      :createdAt => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
     }
     t.render.should == 

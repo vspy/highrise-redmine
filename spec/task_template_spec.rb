@@ -6,7 +6,7 @@ describe HighriseRedmine::TaskTemplate do
   it "formats task properly" do
     t = HighriseRedmine::TaskTemplate.new
     t[:content] = {
-      :created => '2011-01-02 03:04:05',
+      :createdAt => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
       :due => '2012-02-03 04:05:06',
     }
@@ -22,7 +22,7 @@ eos
   it "formats incomplete task properly" do
     t = HighriseRedmine::TaskTemplate.new
     t[:content] = {
-      :created => '2011-01-02 03:04:05',
+      :createdAt => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
     }
     t.render.should == 
