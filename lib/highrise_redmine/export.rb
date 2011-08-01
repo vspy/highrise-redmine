@@ -118,7 +118,7 @@ class HighriseRedmine
             template = TicketTemplate.new
             template[:title] = person[:title]
             template[:company] = person[:company]
-            template[:tags] = (person[:tags] || []).map { |t, i| {:first=> (i==0), :value=>t} }
+            template[:tags] = (person[:tags] || []).each_with_index.map { |t, i| {:first=> (i==0), :value=>t} }
             template[:emails] = person[:emails]
             template[:phones] = person[:phones]
             template[:messengers] = person[:messengers]
