@@ -53,6 +53,11 @@ class HighriseRedmine
       HighriseRedmine::HighriseParser.parseTasks(body)
     end
 
+    def getCompletedTasks
+      body = @http.get( URI.join(@baseUrl, "tasks/completed.xml"), @authToken, "X" )
+      HighriseRedmine::HighriseParser.parseTasks(body)
+    end
+
   end
 
 end

@@ -48,6 +48,12 @@ describe HighriseRedmine::Source do
     result.length.should == 2
   end
 
+  it "gets and parses completed tasks" do
+    src = prepare('/tasks-completed.xml', 'tasks/completed.xml')
+    result = src.getCompletedTasks
+    result.length.should == 2
+  end
+
 end
 
 
