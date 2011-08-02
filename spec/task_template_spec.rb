@@ -9,6 +9,7 @@ describe HighriseRedmine::TaskTemplate do
       :created => '2011-01-02 03:04:05',
       :body => 'Hello, world!',
       :due => '2012-02-03 04:05:06',
+      :done => '2013-03-04 05:06:07',
     }
     t.render.should == 
 <<-eos
@@ -16,6 +17,7 @@ Date: 2011-01-02 03:04:05
 
 Задача: Hello, world!
 Исполнить до: 2012-02-03 04:05:06
+Исполнено: 2013-03-04 05:06:07
 eos
   end
 
