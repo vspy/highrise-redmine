@@ -129,6 +129,8 @@ class HighriseRedmine
             puts "* #{person[:lastName]} #{person[:firstName]}"
           else 
             @storage.markAsStarted(id)
+            puts "+ #{person[:lastName]} #{person[:firstName]}"
+
             if (companyId) 
               person[:company] = @storage.findCompany(companyId)
             end
@@ -197,7 +199,6 @@ class HighriseRedmine
             }
 
             @storage.markAsProcessed(id)
-            puts "+ #{person[:lastName]} #{person[:firstName]}"
             count+=1
           end
         }
