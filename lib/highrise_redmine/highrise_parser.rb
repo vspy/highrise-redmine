@@ -62,7 +62,9 @@ class HighriseRedmine
         tasks<<{
           :created => DateTime.parse(task['created-at'][0]['content']),
           :body=>task['body'][0],
-          :due=>((task['due-at'] || []).map {|due| DateTime.parse(due['content'])})[0]
+          :subjectId=>normalize(task['subject-id'][0]['content']),
+          :due=>((task['due-at'] || []).map {|due| DateTime.parse(due['content'])})[0],
+          :done=>((task['done-at'] || []).map {|done| DateTime.parse(done['content'])})[0],
         } 
       end
 
@@ -130,7 +132,8 @@ class HighriseRedmine
     end
 
     def self.normalize(s)
-      (s == [] || s == {} || s == {"nil"=>"true"})? nil : s
+      (s == [] || s == {} || 
+        ( Hash === s && s["nil"] == "true" ))? nil : s
     end
 
   end

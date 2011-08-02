@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks type="array">
+  <task>
+    <alert-at type="datetime">2011-08-02T04:00:00Z</alert-at>
+    <author-id type="integer">533527</author-id>
+    <body>no subject task</body>
+    <category-id type="integer">2988799</category-id>
+    <created-at type="datetime">2011-08-01T13:22:59Z</created-at>
+    <done-at type="datetime">2011-08-01T13:37:21Z</done-at>
+    <due-at type="datetime">2011-08-02T04:00:00Z</due-at>
+    <id type="integer">14286114</id>
+    <owner-id type="integer">533527</owner-id>
+    <recording-id type="integer" nil="true"></recording-id>
+    <subject-id type="integer" nil="true"></subject-id>
+    <subject-type nil="true"></subject-type>
+    <updated-at type="datetime">2011-08-01T13:37:21Z</updated-at>
+    <public type="boolean">false</public>
+    <frame>overdue</frame>
+    <subject-name nil="true"></subject-name>
+  </task>
+  <task>
+    <alert-at type="datetime">2011-08-01T16:30:00Z</alert-at>
+    <author-id type="integer">533527</author-id>
+    <body>John Doe task</body>
+    <category-id type="integer" nil="true"></category-id>
+    <created-at type="datetime">2011-08-01T13:30:58Z</created-at>
+    <done-at type="datetime">2011-08-01T13:31:31Z</done-at>
+    <due-at type="datetime">2011-08-02T04:00:00Z</due-at>
+    <id type="integer">14286335</id>
+    <owner-id type="integer">533527</owner-id>
+    <recording-id type="integer" nil="true"></recording-id>
+    <subject-id type="integer">79593549</subject-id>
+    <subject-type>Party</subject-type>
+    <updated-at type="datetime">2011-08-01T13:31:31Z</updated-at>
+    <public type="boolean">false</public>
+    <frame>overdue</frame>
+    <subject-name>John Doe</subject-name>
+  </task>
+</tasks>
+

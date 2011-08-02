@@ -3,11 +3,12 @@ require 'highrise_redmine/highrise_parser'
 
 describe HighriseRedmine::HighriseParser do
 
+  def read(filename)
+    File.open(File.dirname(__FILE__)+filename).read
+  end
+
   it "reads persons sample data correctly" do
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/persons.xml")
-    content = file.read
-    result = HighriseRedmine::HighriseParser.parsePersons(content)
+    result = HighriseRedmine::HighriseParser.parsePersons(read("/persons.xml"))
 
     result.length.should == 2
     result[0][:id].should == "1"
@@ -23,26 +24,20 @@ describe HighriseRedmine::HighriseParser do
     result[0][:background].should == "A popular guy for random data"
     result[1][:background].should == "A popular girl for random data"
 
-    result[0][:created].should == DateTime.civil(2007,02,27,3,11,52)
+    result[0][:created].should == DateTime.civil(2007,2,27,3,11,52)
   end
 
   it "reads persons incomplete sample data correctly" do
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/persons-incomplete.xml")
-    content = file.read
-    result = HighriseRedmine::HighriseParser.parsePersons(content)
+    result = HighriseRedmine::HighriseParser.parsePersons(read("/persons-incomplete.xml"))
 
     result.length.should == 1
     result[0][:title].should == nil
     result[0][:background].should == nil
-    result[0][:created].should == DateTime.civil(2007,02,27,3,11,52)
+    result[0][:created].should == DateTime.civil(2007,2,27,3,11,52)
   end
 
   it "reads persons sample data, retreived from real highrise instance correctly" do
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/persons-real.xml")
-    content = file.read
-    result = HighriseRedmine::HighriseParser.parsePersons(content)
+    result = HighriseRedmine::HighriseParser.parsePersons(read("/persons-real.xml"))
 
     result.length.should == 2
     result[0][:id].should == "78334470"
@@ -70,10 +65,7 @@ describe HighriseRedmine::HighriseParser do
   end
 
   it "reads companies sample data correctly" do
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/companies.xml")
-    content = file.read
-    result = HighriseRedmine::HighriseParser.parseCompanies(content)
+    result = HighriseRedmine::HighriseParser.parseCompanies(read("/companies.xml"))
 
     result.length.should == 2
     result[0][:id].should == "1"
@@ -83,14 +75,12 @@ describe HighriseRedmine::HighriseParser do
   end
 
   it "reads notes sample data correctly" do 
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/notes.xml")
-    content = file.read
+    content = File.open(File.dirname(__FILE__)+"/notes.xml").read
     result = HighriseRedmine::HighriseParser.parseNotes(content)
 
     result.length.should == 2
     result[0].should == {
-      :created=>DateTime.civil(2006,05,16,17,26,00),
+      :created=>DateTime.civil(2006,5,16,17,26,0),
       :body=>'Hello world!',
       :attachments=>[
         {:url=>'https://example.highrisehq.com/files/1', :name=>'picture.png'},
@@ -98,36 +88,54 @@ describe HighriseRedmine::HighriseParser do
       ]
     }
     result[1].should == {
-      :created=>DateTime.civil(2006,05,16,17,26,00),
+      :created=>DateTime.civil(2006,5,16,17,26,0),
       :body=>'Love, peace and hair grease!',
       :attachments=>[]
     }
   end
 
   it "reads tasks sample data correctly" do 
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/tasks.xml")
-    content = file.read
-    result = HighriseRedmine::HighriseParser.parseTasks(content)
+    result = HighriseRedmine::HighriseParser.parseTasks(read("/tasks.xml"))
 
     result.length.should == 2
     result[0].should == {
-      :created=>DateTime.civil(2011,07,18,8,43,50),
+      :created=>DateTime.civil(2011,7,18,8,43,50),
       :body=>'A timed task for the future',
-      :due=>DateTime.civil(2007,03,10,15,11,52)
+      :subjectId=>nil,
+      :due=>DateTime.civil(2007,3,10,15,11,52),
+      :done=>nil
     }
     result[1].should == {
-      :created=>DateTime.civil(2011,06,18,8,43,50),
+      :created=>DateTime.civil(2011,6,18,8,43,50),
       :body=>'Another task',
-      :due=>nil
+      :subjectId=>nil,
+      :due=>nil,
+      :done=>nil
+    }
+  end
+
+  it "reads completed tasks data correctly" do 
+    result = HighriseRedmine::HighriseParser.parseTasks(read("/tasks-completed.xml"))
+
+    result.length.should == 2
+    result[0].should == {
+      :created=>DateTime.civil(2011,8,1,13,22,59),
+      :body=>'no subject task',
+      :subjectId=>nil,
+      :due=>DateTime.civil(2011,8,2,4,00,00),
+      :done=>DateTime.civil(2011,8,1,13,37,21),
+    }
+    result[1].should == {
+      :created=>DateTime.civil(2011,8,1,13,30,58),
+      :body=>'John Doe task',
+      :subjectId=>"79593549",
+      :due=>DateTime.civil(2011,8,2,4,00,00),
+      :done=>DateTime.civil(2011,8,1,13,31,31),
     }
   end
 
   it "reads users sample data properly" do
-    dir = File.dirname(__FILE__) 
-    file = File.open(dir+"/users.xml")
-    content = file.read
-    result = HighriseRedmine::HighriseParser.parseUsers(content)
+    result = HighriseRedmine::HighriseParser.parseUsers(read("/users.xml"))
 
     result.length.should == 2
     result[0].should == {
