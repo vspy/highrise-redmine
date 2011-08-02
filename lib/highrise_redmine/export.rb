@@ -26,6 +26,18 @@ class HighriseRedmine
       @urlFieldId = config.urlFieldId
     end 
 
+    def formatDates(hash)
+      result = {}
+      hash.each {|k,v|
+        if (DateTime === v)
+          result[k] = v.strftime(TIME_FORMAT) 
+        else 
+          result[k] = v
+        end
+      }
+      result
+    end
+
     def createAttachmentsDir
       if File.directory?(@attachmentsDir)
         return
@@ -86,6 +98,20 @@ class HighriseRedmine
         puts "#{id} -> #{email}"
       }
 
+      puts '... Retreiving completed tasks'
+      tasks = @src.getCompletedTasks
+      puts "got #{tasks.length} completed tasks"
+
+      tasksBySubject = {}
+      tasks.each {|task|
+        subjectId = task[:subjectId]
+        if (subjectId)
+          task[:type] = :task
+          list = tasksBySubject[subjectId] || ( tasksBySubject[subjectId] = [] )
+          list << task
+        end
+      }
+      
       puts '... Exporting contacts'
       count = 0
       offset = 0
@@ -140,7 +166,10 @@ class HighriseRedmine
             redmineId = @dst.createIssue(issueHash)
             @storage.markTargetId(id, redmineId)
 
-            updates = sortUpdates( loadNotesAndTasks(id) )
+
+            notesAndTasks = loadNotesAndTasks(id)
+            notesAndTasks.concat( tasksBySubject[id] || [] )
+            updates = sortUpdates( notesAndTasks )
 
             notesWithFiles = updates.find_all { |u| u[:type]==:note && u[:attachments] && !u[:attachments].empty? }
             if (!notesWithFiles.empty? && firstAttachment)
@@ -159,10 +188,7 @@ class HighriseRedmine
 
             updates.each { |u|
               template = (u[:type]==:note)?NoteTemplate.new : TaskTemplate.new
-              template[:content] = u
-
-              created = u[:created]
-              template[:createdAt] = created ? created.strftime(TIME_FORMAT) : nil
+              template[:content] = formatDates(u)
 
               updateHash = issueHash.clone
               updateHash[:notes] = template.render

@@ -1,10 +1,13 @@
 {{#content}}
-{{#createdAt}}
+{{#created}}
 Date: {{{.}}}
 
-{{/createdAt}}
+{{/created}}
 Задача: {{{body}}}
 {{#due}}
 Исполнить до: {{{.}}}
 {{/due}}
+{{#done}}
+Исполнено: {{{.}}}
+{{/done}}
 {{/content}}

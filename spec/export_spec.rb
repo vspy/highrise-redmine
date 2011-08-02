@@ -12,6 +12,7 @@ describe HighriseRedmine::Export do
 
     src.stub!(:getUsers).and_return([])
     src.stub!(:getCompanies).and_return([])
+    src.stub!(:getCompletedTasks).and_return([])
     src.stub!(:getPersons).and_return([])
     src.stub!(:companiesBatchSize).and_return(500)
     src.stub!(:personsBatchSize).and_return(500)
@@ -48,6 +49,7 @@ describe HighriseRedmine::Export do
       {:id=>"2", :email=>"bob@example.org"},
     ])
     src.stub!(:getCompanies).and_return([])
+    src.stub!(:getCompletedTasks).and_return([])
     src.stub!(:companiesBatchSize).and_return(500)
     src.stub!(:personsBatchSize).and_return(500)
     src.stub!(:notesBatchSize).and_return(25)
@@ -89,6 +91,7 @@ describe HighriseRedmine::Export do
       {:id=>"id5",:name=>"name5"}
     ])
     src.stub!(:companiesBatchSize).and_return(3)
+    src.stub!(:getCompletedTasks).and_return([])
     src.stub!(:personsBatchSize).and_return(500)
     src.stub!(:notesBatchSize).and_return(25)
     src.stub!(:getPersons).and_return([])
@@ -131,6 +134,7 @@ describe HighriseRedmine::Export do
       {:id=>"id5",:firstName=>"Carl",:lastName=>"C.",:created=>DateTime.now}
     ])
     src.stub!(:companiesBatchSize).and_return(500)
+    src.stub!(:getCompletedTasks).and_return([])
     src.stub!(:personsBatchSize).and_return(3)
     src.stub!(:notesBatchSize).and_return(3)
     src.stub!(:tasksBatchSize).and_return(3)
