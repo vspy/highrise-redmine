@@ -4,10 +4,9 @@ src:
 
 dst: 
   url: http://example.org/destination/
-  authToken: dstsecret
   priority_id: 42
   status_id: 43
   tracker_id: 44
   project_id: 45
   attachments_url: http://example.org/attachments/
-  default_mapping: alice
+  default_token: defaultsecret  

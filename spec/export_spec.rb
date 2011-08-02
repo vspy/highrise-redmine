@@ -35,7 +35,7 @@ describe HighriseRedmine::Export do
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
 
-    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
+    export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run
   end
 
@@ -70,7 +70,7 @@ describe HighriseRedmine::Export do
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
 
-    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
+    export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run  
   end
 
@@ -113,7 +113,7 @@ describe HighriseRedmine::Export do
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
 
-    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
+    export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run
   end
 
@@ -222,7 +222,7 @@ describe HighriseRedmine::Export do
     src.stub!(:download)
     src.should_receive(:download).with("http://example.org/1", anything())
  
-    export = HighriseRedmine::Export.new(config, src, storage, nil, dst)
+    export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run
   end
 
@@ -249,7 +249,7 @@ describe HighriseRedmine::Export do
       {:type=>:note, :created=>DateTime.civil(2011,01,01,00,00,00)},
       {:type=>:note},
     ]
-    HighriseRedmine::Export.new(config, src,nil,nil,nil).sortUpdates(data).should == [
+    HighriseRedmine::Export.new(config, src, nil, nil).sortUpdates(data).should == [
       {:type=>:note},
       {:type=>:note, :created=>DateTime.civil(2011,01,01,00,00,00)},
       {:type=>:task, :created=>DateTime.civil(2011,02,01,00,00,00)},

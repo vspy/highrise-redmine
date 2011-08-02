@@ -4,7 +4,6 @@ src:
 
 dst: 
   url: http://example.org/destination/
-  authToken: dstsecret
   priority_id: 42
   status_id: 43
   tracker_id: 44
@@ -12,6 +11,6 @@ dst:
   attachments_url: http://example.org/attachments/
   attachments_dir: ~/Documents/attachments/
   mapping:
-    alice: bob
-    clara: dave
-  default_mapping: edward
+    alice: alicesecret
+    clara: clarasecret
+  default_token: defaultsecret

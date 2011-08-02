@@ -1,4 +1,5 @@
 require 'highrise_redmine/redmine_template'
+require 'highrise_redmine/token_provider'
 require 'xmlsimple'
 
 class HighriseRedmine
@@ -8,17 +9,17 @@ class HighriseRedmine
     def initialize(config, http) 
       @baseUrl = config.dstUrl
       @http = http
-      @authToken = config.dstAuthToken
+      @tokenProvider = TokenProvider.new(config)
     end
 
-    def deleteIssue(id)
-      @http.delete( URI.join(@baseUrl, "issues/#{id}.xml"), @authToken, "X" )
+    def deleteIssue(id)    
+      @http.delete( URI.join(@baseUrl, "issues/#{id}.xml"), @tokenProvider.getToken(nil), "X" )
     end
 
     def createIssue(content)
       template = RedmineTemplate.new
       template[:content] = content
-      response = @http.post( URI.join(@baseUrl, "issues.xml"), template.render, @authToken, "X" )
+      response = @http.post( URI.join(@baseUrl, "issues.xml"), template.render, @tokenProvider.getToken(content[:owner]), "X" )
       doc = XmlSimple.xml_in(response)
       doc['id'][0]
     end
@@ -26,7 +27,7 @@ class HighriseRedmine
     def updateIssue(id, content)
       template = RedmineTemplate.new
       template[:content] = content
-      @http.put( URI.join(@baseUrl, "issues/#{id}.xml"), template.render, @authToken, "X" )
+      @http.put( URI.join(@baseUrl, "issues/#{id}.xml"), template.render, @tokenProvider.getToken(content[:owner]), "X" )
     end
 
   end

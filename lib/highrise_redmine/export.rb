@@ -10,14 +10,14 @@ class HighriseRedmine
 
     TIME_FORMAT = "%a %b %d %H:%M:%S %z %Y"
  
-    def initialize(config, src, storage, mapper, dst)
+    def initialize(config, src, storage, dst)
       @src = src
       @storage = storage
-      @mapper = mapper
       @dst = dst
 
       @attachmentsDir = config.attachmentsDir ? File.expand_path(config.attachmentsDir) : (Dir.pwd + File::Separator + "attachments")
       @attachmentsUrl = config.attachmentsUrl
+      @assignedTo = config.assignedTo
       @projectId = config.projectId
       @trackerId = config.trackerId
       @priorityId = config.priorityId
@@ -133,7 +133,7 @@ class HighriseRedmine
               person[:company] = @storage.findCompany(companyId)
             end
             if (authorId) 
-              person[:assigned_to_id] = @mapper.map( @storage.findUser(authorId) )
+              person[:owner] = @storage.findUser(authorId)
             end
 
             customFields = @customFields.clone
@@ -159,7 +159,8 @@ class HighriseRedmine
               :priority_id => @priorityId,
               :tracker_id => @trackerId,
               :status_id => @statusId,
-              :assigned_to_id => person[:assigned_to_id],
+              :owner => person[:owner],
+              :assigned_to_id => @assignedTo,
               :custom_fields => customFields.map {|k,v| {:id=>k,:value=>v} }
             }
 

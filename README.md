@@ -7,7 +7,6 @@ src:
 
 dst: 
   url: http://example.org/redmine/
-  authToken: 9228bc14...
   project_id: 1
   tracker_id: 1
   priority_id: 4
@@ -17,8 +16,9 @@ dst:
   url_field: 1
   custom_fields:
     2: check once again
+  assigned_to_id: 1 # assign created tickets to
   mapping:
-    alice@example.org: 2 # bob
-    clara@example.org: 3 # dave
-  default_mapping: 1 # admin
+    alice@example.org: 9228bc14... # Alice's auth token
+    clara@example.org: 0339cd25... # Clara's auth token
+  default_token: 8117ab03... # default auth token
 ```

@@ -10,7 +10,8 @@ describe HighriseRedmine::Destination do
 
     config = mock("config")
     config.stub!(:dstUrl).and_return('http://example.org/destination/')
-    config.stub!(:dstAuthToken).and_return('token')
+    config.stub!(:mapping)
+    config.stub!(:defaultToken).and_return('token')
 
     dst = HighriseRedmine::Destination.new(config, http)
     dst.deleteIssue(42)
