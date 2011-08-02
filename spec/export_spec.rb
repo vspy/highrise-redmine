@@ -34,6 +34,7 @@ describe HighriseRedmine::Export do
     config.stub!(:statusId)
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
+    config.stub!(:assignedTo)
 
     export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run
@@ -69,6 +70,7 @@ describe HighriseRedmine::Export do
     config.stub!(:statusId)
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
+    config.stub!(:assignedTo)
 
     export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run  
@@ -112,6 +114,7 @@ describe HighriseRedmine::Export do
     config.stub!(:statusId)
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
+    config.stub!(:assignedTo)
 
     export = HighriseRedmine::Export.new(config, src, storage, dst)
     export.run
@@ -218,6 +221,7 @@ describe HighriseRedmine::Export do
     config.stub!(:statusId)
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
+    config.stub!(:assignedTo)
 
     src.stub!(:download)
     src.should_receive(:download).with("http://example.org/1", anything())
@@ -242,6 +246,7 @@ describe HighriseRedmine::Export do
     config.stub!(:statusId)
     config.stub!(:customFields)
     config.stub!(:urlFieldId)
+    config.stub!(:assignedTo)
 
     data = [
       {:type=>:task, :created=>DateTime.civil(2011,02,01,00,00,00)},
