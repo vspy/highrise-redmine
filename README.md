@@ -1,4 +1,12 @@
-Sample configuration file:
+Как приготовить redmine к импорту
+==================================
+
+Administration -> Settings -> Authentication -> Enable REST web service [x]
+
+
+
+Sample configuration file
+--------------------------
 
 ```
 src: 
@@ -13,8 +21,8 @@ dst:
   status_id: 1
   attachments_url: http://example.org/files/
   attachments_dir: ~/Documents/highrise_attachments/
-  url_field: 1
-  custom_fields:
+  url_field: 1 # идентификатор custom field, куда будет помещен исходный URL highrise
+  custom_fields: # что помещать в другие custom fields
     2: check once again
   assigned_to_id: 1 # assign created tickets to
   mapping:
