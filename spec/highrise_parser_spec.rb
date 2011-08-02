@@ -134,6 +134,28 @@ describe HighriseRedmine::HighriseParser do
     }
   end
 
+  it "reads incomplete tasks data correctly" do 
+    result = HighriseRedmine::HighriseParser.parseTasks(read("/tasks-incomplete.xml"))
+
+    result.length.should == 2
+    result[0].should == {
+      :created=>DateTime.civil(2011,8,1,13,22,59),
+      :body=>'no subject task',
+      :subjectId=>nil,
+      :due=>nil,
+      :done=>nil,
+    }
+    result[1].should == {
+      :created=>DateTime.civil(2011,8,1,13,30,58),
+      :body=>'John Doe task',
+      :subjectId=>"79593549",
+      :due=>nil,
+      :done=>nil,
+    }
+  end
+
+
+
   it "reads users sample data properly" do
     result = HighriseRedmine::HighriseParser.parseUsers(read("/users.xml"))
 

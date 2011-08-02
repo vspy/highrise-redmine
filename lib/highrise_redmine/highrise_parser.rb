@@ -63,12 +63,20 @@ class HighriseRedmine
           :created => DateTime.parse(task['created-at'][0]['content']),
           :body=>task['body'][0],
           :subjectId=>normalize(task['subject-id'][0]['content']),
-          :due=>((task['due-at'] || []).map {|due| DateTime.parse(due['content'])})[0],
-          :done=>((task['done-at'] || []).map {|done| DateTime.parse(done['content'])})[0],
+          :due=>((task['due-at'] || []).map {|due| 
+                    date( due['content'] )
+                  })[0],
+          :done=>((task['done-at'] || []).map {|done| 
+                    date( done['content'] )
+                  })[0],
         } 
       end
 
       tasks
+    end
+
+    def self.date(content) 
+      content ? DateTime.parse(content) : nil
     end
 
     def self.parsePersons(body) 
